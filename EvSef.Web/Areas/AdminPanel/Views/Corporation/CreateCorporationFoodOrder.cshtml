@@ -1,0 +1,169 @@
+﻿@using EvSef.Domain.ViewModels.ChefFood
+@model EvSef.Domain.ViewModels.CorporationFood.CreateCorporationFoodViewModel
+
+@{
+    ViewData["Title"] = "CreateCorporationFoodOrder";
+    List<ChefFoodViewModel>? allChefFoods = ViewData["AllChefFoods"] as List<ChefFoodViewModel>;
+}
+
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Corporation Food order</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="Corporation" asp-action="CreateCorporationFoodOrder"  method="post" enctype="multipart/form-data">
+                                <input type="hidden" asp-for="CorporationId" />
+                                <input type="hidden" asp-for="CorporationOrderFromDate" id="CorporationOrderFromDate" />
+                                <input type="hidden" asp-for="CorporationOrderToDate" id="CorporationOrderToDate" />
+
+                                <div class="form-row">
+
+                                    <div class="col-lg-4">
+
+                                        <div class="basic-form">
+
+                                            <div class="form-group">
+                                                <label asp-for="WeekDayName">Select Day from list:</label>
+
+                                                <select asp-for="WeekDayName" class="form-control">
+                                                    <option value="0">Saturday</option>
+                                                    <option value="1">Sunday</option>
+                                                    <option value="2">Monday</option>
+                                                    <option value="3">Tuesday</option>
+                                                    <option value="4">Wednesday</option>
+                                                    <option value="5">Thursday</option>
+                                                    <option value="6">Friday</option>
+
+                                                </select>
+                                                <span asp-validation-for="WeekDayName"></span>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+ 
+                                            
+                                    <div class="col-lg-4">
+
+                                        <div class="basic-form">
+
+                                            <div class="form-group">
+                                                <label asp-for="SelectedChefFoodId">Chef Food Name</label>
+
+                                                <select asp-for="SelectedChefFoodId" class="form-control">
+
+                                                    @if (allChefFoods.Any())
+
+                                                    {
+
+                                                        @foreach (var item in allChefFoods)
+                                                        {
+                                                            <option value="@item.ChefFoodId"> @item.FoodTitle || @item.ChefName </option>
+
+                                                        }
+
+                                                    }
+                                                    <span asp-validation-for="SelectedChefFoodId"></span>
+
+                                                </select>
+                                                <span ></span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    
+ 
+ 
+
+                                    <div class="form-group col-md-4">
+                                        <label asp-for="FoodAmount">Food Amount</label>
+                                        <input asp-for="FoodAmount" type="text" class="form-control">
+                                        <span asp-validation-for="FoodAmount"></span>
+                                    </div>
+
+
+                                    <!-- Card Date Range Pick -->
+
+                                    <div class="col-lg-4">
+                                        <div class="row form-material">
+                                            <div class="col-md-12">
+                                                <label class="m-t-20">Date Range Pick</label>
+                                                <input type="text" class="form-control" name="daterange" id="daterange">
+                                                <input asp-for="CorporationOrderFromDate"  type="hidden" asp-for="CorporationOrderFromDate" id="CorporationOrderFromDate" />
+                                                <input asp-for="CorporationOrderToDate" type="hidden" asp-for="CorporationOrderToDate" id="CorporationOrderToDate" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Card -->
+
+
+                                    <div class="form-group mt-5 ml-5">
+                                        <div class="form-check">
+                                            <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                            <label for="checkbox" class="form-check-label">Active</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create Corporation Food Order</button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#daterange').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 1,
+                locale: {
+                    format: 'MM/DD/YYYY HH:mm'  
+                }
+
+            }, function (start, end, label) {
+
+                $('#CorporationOrderFromDate').val(start.format('YYYY-MM-DD HH:mm:ss'));
+                $('#CorporationOrderToDate').val(end.format('YYYY-MM-DD HH:mm:ss'));
+            });
+        });
+    </script>
+}

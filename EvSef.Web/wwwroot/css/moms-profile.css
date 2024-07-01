@@ -1,0 +1,50 @@
+.card-panel input:focus,
+.card-panel input:focus-visible{
+    outline-color: #e5e5e5 !important;
+    border-color: #e5e5e5 !important;
+}
+
+.pagination{
+    padding-top: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.pagination a{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.pagination :is(li.active,li:hover) a{
+    border: 1px solid #9B6CC8 !important;
+    background-color: #9B6CC8 !important;
+    color: #fff !important;
+}
+.input-group-text{
+    height: 100%;
+}
+@media (max-width:768px){
+    .profile-row{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+    .pagination-col{
+        margin-top: 20px;
+    }
+    .img-responsive{
+        width: 100% !important;
+    }
+    .section-margin .row{
+        width: 100%;
+        margin-inline: auto;
+    }
+    .animated-card{
+        margin-top: 20px !important;
+    }
+}

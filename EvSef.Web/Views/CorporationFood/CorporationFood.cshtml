@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "CorporationFood";
+ 
+}
+
+<!-- Cooking Start -->
+
+<div class="register py-5">
+    <div class="container">
+        <div class="row align-items-center">
+           
+            <div class="col-lg-6">
+                <div class="register-content">
+                    <div class="section-header">
+                        <h2 class="my-3">@ViewData["CorporationFoodTitle"]</h2>
+
+                        <p>@ViewData["CorporationFoodDescription"]</p> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 d-flex justify-content-end">
+
+                <partial name="CorporationRegisterPartial"></partial>
+ 
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!---- End Corporation Food request-->
+ 
+<!-- Cooking End -->
+@await Component.InvokeAsync("CorporationFoodOrder")
+<!-- Vendor Start -->
+@await Component.InvokeAsync("OurCustomer")
+
+<!-- Vendor End -->
+
+ 

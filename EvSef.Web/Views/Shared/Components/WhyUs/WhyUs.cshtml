@@ -1,0 +1,44 @@
+﻿@using EvSef.Core.FilePath
+@model IEnumerable<EvSef.Domain.ViewModels.BeComeChef.BeComeChefViewModel>
+<!-- End Why us-->
+<section>
+
+    <div class=" center-align">
+        <hr class="hr-style" />
+
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+
+            <h4 class="  ff-secondary text-center text-primary fw-normal mb-4 my-4">@ViewData["ReasonBecomeChefTitle"] </h4>
+
+
+        </div>
+    </div>
+
+
+    <div class="container cooking-why-us-width why-us-width">
+        <div class="row justify-content-center col-sm-12 my-4">
+            <div class="col-xxl-10">
+                <div class="card card-span shadow-warning" style="border-radius: 35px;">
+                    <div class="card-body py-5">
+                        <div class="row justify-content-evenly">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-12 col-md-3">
+
+                                <div class="d-flex d-md-block d-xl-flex justify-content-between justify-content-lg-between w-100">
+                                    <img src="@(FilePath.BeComeChefAvatarImage + item.BeComeChefImage)" width="100" alt="..."/>
+                                    <div class="d-flex d-lg-block d-xl-flex flex-center">
+                                        <h4 class="fw-bolder text-1000 mb-0 text-gradient"> @item.BeComeChefTitle <br class="d-none d-md-block"/> </h4>
+                                    </div>
+                                </div>
+
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

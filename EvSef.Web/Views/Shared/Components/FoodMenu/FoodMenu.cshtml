@@ -1,0 +1,90 @@
+﻿@using EvSef.Core.FilePath
+@using EvSef.Domain.Entities.Food
+@using DocumentFormat.OpenXml.Office2010.ExcelAc
+@model IEnumerable<EvSef.Domain.ViewModels.WeekDayFood.WeekDailyFoodMenuInSiteViewModel>
+
+<div class="clearfix" id="menu">
+    <div class="container">
+        <div class="row justify-content-center tabs-row">
+            <div class="menu">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <h2 class="text-uppercase section-title ff-secondary text-center text-primary fw-normal mb-4 my-4">@ViewBag.FoodMenuTitle</h2>
+                    </div>
+                    <div class="menu-tab">
+                        <ul class="food-menu-days nav nav-pills justify-content-center">
+                            @foreach (var day in Enum.GetValues(typeof(WeekDayName)))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(day.ToString() == ViewBag.CurrentWeekDay ? "active" : "")" data-day="@day.ToString()">@day.ToString()</a>
+                                </li>
+                            }
+                        </ul>
+                        
+               
+
+
+                        <div id="aniimated-thumbnials" class="tab-content">
+
+                            @foreach (var day in Enum.GetValues(typeof(WeekDayName)))
+                            {
+                                var foodsForDay = Model.Where(m => m.WeekDayName == (WeekDayName)day);
+
+                                <div id="@day.ToString().ToLower()" class="container tab-pane @(day.ToString() == "Saturday" ? "active" : "")">
+                                    
+
+                                    <div class="row">
+
+                                        @if (foodsForDay.Any())
+                                        {
+
+                                            @foreach (var item in Model.Where(m => m.WeekDayName == (WeekDayName)day))
+                                            {
+                                                <div class="col-lg-7 col-md-12">
+                                                    <div class="menu-item my-3">
+                                                        <div class="menu-img">
+                                                            <img src="@(FilePath.FoodAvatarImage + item.ImageFood)" alt="FoodImage">
+                                                        </div>
+                                                        <div class="menu-text">
+                                                            <h3>
+                                                                <span class="span-menu">
+                                                                    @item.FoodTitle
+                                                         
+                                                                    <a asp-controller="Home" asp-action="AddToCart" asp-area="UserPanel" asp-route-chefFoodId="@item.ChefFoodId"   class="add-to-cart" title="Add to cart">
+                                                                        <input type="hidden" name="stayInCartPage" value="false" />
+                                                                        <i class="fas fa-cart-plus"></i>
+                                                                    </a>
+
+                                                                </span>
+                                                                <strong>@item.ChefFoodsPrice.ToString("N2")</strong>
+                                                            </h3>
+                                                            <p class="text-menu">@item.FoodDescription</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5 d-none d-lg-block">
+                                                    <img class="food-menu-img" src="@(FilePath.FoodAvatarImage + item.ImageFood)" alt="FoodImage">
+                                                </div>
+                                            }
+
+                                            }
+                                        else
+                                        {
+
+                                            <div class="col-12">
+                                                <p class="text-center bg-light-product pt-5 pb-5 center mb-5">We Don't Have Food Today !</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 

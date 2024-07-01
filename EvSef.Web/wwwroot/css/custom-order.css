@@ -1,0 +1,42 @@
+
+
+.custom-container{
+    box-shadow: 0 0 8px 10px #e0bfff; 
+    max-width: 500px; 
+    margin: 7em auto;
+}
+.modal-title{
+    margin-inline: auto;
+}
+.input-group-text{
+    height: auto;
+}
+.ftco-footer{
+    position: relative;
+    bottom: 0;
+}
+/* @media (max-width: 1366px){
+    .custom-container{
+        max-width: 70%;
+    }
+} */
+@media (min-height:1366px) and (max-height:1366px) {
+    .custom-container .modal-body{
+        padding-block: 140px !important;
+    }
+}
+@media (max-width:992px) {
+    .register{
+        width: auto !important;
+    }    
+}
+@media (max-width: 1919.98px) {
+    .register .register-form{
+        padding: 50px 30px !important;
+    }
+}
+@media (max-width:576px){
+    .modal-body.container{
+        max-width: 90% !important;
+    }
+}

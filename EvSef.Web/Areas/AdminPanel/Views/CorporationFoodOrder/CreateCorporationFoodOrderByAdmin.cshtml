@@ -1,0 +1,74 @@
+﻿@model EvSef.Domain.ViewModels.CorporationFoodOrder.CreateCorporationFoodOrderViewModel
+@{
+    ViewData["Title"] = "CreateCorporationFoodOrderByAdmin";
+
+}
+
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create How Order</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="CorporationFoodOrder" asp-action="CreateCorporationFoodOrderByAdmin" asp-area="AdminPanel" method="post" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CorporationFoodOrderTitle">Corporation FoodOrder Title</label>
+                                        <input asp-for="CorporationFoodOrderTitle" type="text" class="form-control">
+                                        <span asp-validation-for="CorporationFoodOrderTitle"></span>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CorporationFoodOrderAvatar">Corporation Food OrderImage</label>
+                                        <input asp-for="CorporationFoodOrderAvatar" class="form-control" placeholder="Avatar">
+                                        <span asp-validation-for="CorporationFoodOrderAvatar"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label asp-for="CorporationFoodOrderDescription">Corporation Food Order Description</label>
+                                    <textarea asp-for="CorporationFoodOrderDescription" type="text" class="form-control"></textarea>
+                                    <span asp-validation-for="CorporationFoodOrderDescription"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                        <label for="checkbox" class="form-check-label">Active</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create How Order </button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

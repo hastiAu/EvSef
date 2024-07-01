@@ -1,0 +1,73 @@
+﻿@model EvSef.Domain.ViewModels.OurService.CreateOurServiceViewModel
+@{
+    ViewData["Title"] = "CreateOurServiceByAdmin";
+}
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Our Service</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="OurService" asp-action="CreateOurServiceByAdmin" method="post" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="OurServiceTitle">Our Service Title</label>
+                                        <input asp-for="OurServiceTitle" type="text" class="form-control">
+                                        <span asp-validation-for="OurServiceTitle"></span>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="OurServiceFontName">OurService Font Name</label>
+                                        <input asp-for="OurServiceFontName" type="text" class="form-control">
+                                        <span asp-validation-for="OurServiceFontName"></span>
+                                        <span>Find Icon Name from this<a href="https://fontawesome.com/?from=io"> <strong>link</strong> </a> and insert The name Of Icon.</span>
+                                        <span>For example: fa-user</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label asp-for="OurServiceDescription">Our Service Description</label>
+                                    <textarea asp-for="OurServiceDescription" type="text" class="form-control"></textarea>
+                                    <span asp-validation-for="OurServiceDescription"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                        <label for="checkbox" class="form-check-label">Active</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create Our Service </button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

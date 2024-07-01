@@ -1,0 +1,91 @@
+﻿@using System.Web
+@model EvSef.Domain.ViewModels.Account.LoginViewModel
+
+ 
+<div class="modal  modal-costum  " id="Login" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true" BackgroundCssClass="jsMpeBackground">
+    <div class="  modal-dialog modal-dialog-centered  login-modal-dialog  ">
+        <div class="modal-content  ">
+            <div class="modal-header bg-light pb-0 pt-2 d-flex justify-content-between align-items-center">
+ 
+             
+                <h4>Hello! let's get started</h4>
+                <button onclick="closeModal()" id="closeModal" type="button" class="btn btn-Exit" data-dismiss="modal"><i class="fas fa-times"></i></button>
+
+            </div>
+            <div class="modal-body px-0">
+                <div class=" d-flex align-items-center justify-content-center auth px-0">
+                    <div class=" row w-100 ">
+                        <div class="col-12 mx-auto">
+                            <div class="auth-form-light text-left px-sm-3 mx-auto w-100">
+                                <div class="brand-logo">
+                                </div>
+
+                                <h6 class=" text-dark  font-weight-light mb-0 py-3">Sign in to continue.</h6>
+                                <form asp-controller="Account" asp-action="Login" method="post">
+                                    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+                                    <input type="hidden" id="isAuthenticated" value="@User.Identity.IsAuthenticated.ToString().ToLower()" />
+
+                                    <div class="control-group">
+                                        <div class="input-group">
+                                            <input asp-for="Mobile" type="number" class="form-control" placeholder="Mobile Number" />
+                                            <span asp-validation-for="Mobile"></span>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-mobile-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p></p>
+                                    <div class="control-group">
+                                        <div class="input-group">
+                                            <input asp-for="Password" type="password" class="form-control" placeholder="password" />
+                                            <span asp-validation-for="Password"></span>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-key"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mt-3">
+                                        <button class="btn btn-block btn-signin auth-form-btn w-100" type="submit">SIGN IN</button>
+                                    </div>
+                                    <div class="my-2 d-flex justify-content-between align-items-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label text-muted"><input type="checkbox" class="form-check-input"><i class="input-helper"></i>Keep me signed in</label>
+                                        </div>
+                                        <a href="!#" class="auth-link text-black">Forgot password?</a>
+                                    </div>
+                                    <div class="mb-2">
+                                        <button type="button" class="btn btn-block   btn-facebook auth-form-btn w-100 px-0"><i class="mdi mdi-facebook mr-2"></i>Connect using facebook</button>
+                                    </div>
+                                    <div class=" ">
+                                        <button type="button" class=" btn btn-block  btn-google auth-form-btn w-100  gap-2 rounded border   bg-white p-2 text-black ">
+                                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" style="width: 40px; height: 40px" alt="Google">
+
+                                            Sign in with Google
+                                        </button>
+                                    </div>
+                                    <div id="registerHeader"> </div>
+                                    <div class="text-center my-2 font-weight-light">
+                                        Don't have an account?
+
+                                     
+                                        <a asp-controller="Account" asp-action="RegisterPerson">Create</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

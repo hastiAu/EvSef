@@ -1,0 +1,122 @@
+﻿.cooking-register { 
+    padding-top: 1em;
+}
+.cooking-register .register-form{
+    margin-top: 3em;
+}
+.cooking-register .form-control{
+    color: #99a5c2 !important;
+}
+.cooking-why-us .img-fluid{
+    margin-right: 20px;
+}
+.cooking-hr-vertical{
+    border-left: none !important;
+    position: relative;
+}
+.cooking-hr-vertical::before,
+.cooking-hr-vertical::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #CFCFCF;
+}
+.cooking-hr-vertical::before{
+    left: -40px
+}
+.cooking-hr-vertical::after{
+    right: -40px
+}
+
+.cooking-why-img-box{
+    width: max-content;
+    float: left;
+}
+
+.cooking-ml-auto{
+    margin-left: auto;
+}
+@media (max-width:1560px){
+    .cooking-register .register-form{
+        margin-top: 4em;
+    }
+}
+@media (max-width:1400px){
+    .cooking-register {
+        padding-top: 80px;
+    }
+    .cooking-register .register-form{
+        margin-top: 50px;
+    }
+}
+@media (max-width:1200px){
+    .cooking-site-blocks-cover{
+        height: auto;
+    }
+}
+@media (max-width:992px) {
+    .cooking-site-blocks-cover{
+        /* height: 120vh; */
+    }
+    .cooking-register{
+        text-align: center;
+    }
+    .cooking-register .register-form{
+        margin-top: 0 !important;
+        margin-inline: auto;
+        max-width: 50vw;
+    }
+    .cooking-mom-select .img-fluid{
+        height: 345px;
+        height: 345px;
+    }
+}
+@media (max-width: 768px) {
+    .cooking-why-us .img-fluid{
+        margin: auto auto 20px;
+    }
+    .cooking-hr-vertical::before,
+    .cooking-hr-vertical::after{
+        display: none;
+    }
+    .cooking-why-us-width .card-body > .row{
+        gap: 30px;
+    }
+    .cooking-why-us-width .card-body > .row > diV{
+        width: 100% !important;
+        display: flex;
+        justify-content: center;
+        align-content: space-between;
+    }
+}
+@media (max-width: 576px) {
+    .cooking-h{
+        font-size: 1.5rem;
+    }
+    .cooking-register .register-form{
+        max-width: 100%;
+    }
+    .cooking-why-us-width .fw-bolder{
+        font-size: 1rem;
+    }
+    .cooking-register .register-col{
+        padding-inline: 0;
+    }
+}
+
+@media (max-height: 700px) {
+    .cooking-site-blocks-cover{
+        height: 140vh;
+    }
+}
+@media (max-height: 450px) {
+    .cooking-site-blocks-cover{
+        height: auto !important;
+    }
+}
+
+.custom-margin-top {
+    margin-top: -40px;  
+}

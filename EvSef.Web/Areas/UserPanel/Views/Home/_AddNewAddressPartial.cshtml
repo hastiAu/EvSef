@@ -1,0 +1,108 @@
+﻿ @using System.Collections
+@using EvSef.Domain.Entities.ContactInfo
+ @model EvSef.Domain.ViewModels.Cart.CartAddressViewModel
+
+@{
+    Layout = null;
+    IEnumerable<ContactLocation>? state = ViewData["State"] as IEnumerable<ContactLocation>;
+    IEnumerable<ContactLocation>? district = ViewData["District"] as IEnumerable<ContactLocation>;
+}
+
+
+ 
+ 
+
+<div id="addNewAddressContainer">
+    <section>
+        <form asp-controller="Home" asp-action="AddNewAddress" method="post" enctype="multipart/form-data">
+        
+
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <div class="input-group mb-3">
+
+                        <input asp-for="Address" type="text" name="address" class="form-control" placeholder="Address">
+                     
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <div class="control-group">
+                        <label>State</label>
+                        <div class="input-group">
+
+ 
+                            
+                            <select asp-for="State" id="Location_Id" class="form-control">
+                                <option selected="selected">Choose...</option>
+                                @if (state.Any())
+                                {
+                                    @foreach (var item in state)
+                                    {
+                                        <option value="@item.LocationId">@item.StateName</option>
+
+                                    }
+                                }
+                            </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <div class="control-group">
+                        <label>District</label>
+                        <div class="input-group">
+                            
+                   
+
+                            <select asp-for="LocationId" id="SubLocation_Id" class="form-control">
+                                <option selected="selected">Choose...</option>
+                                @foreach (var item in district)
+                                {
+                                    <option value="@item.LocationId">@item.StateName</option>
+
+                                }
+                            </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 mb-3">
+                    <div class="control-group">
+                        <label asp-for="ZipCode">Zip Code</label>
+                        <input asp-for="ZipCode" type="number" class="form-control" min="0">  @*  min="0" : To prevent insert - number *@
+                        <span asp-validation-for="ZipCode"></span>
+                    </div>
+                </div>
+            </div>
+      
+
+            <div class="row">
+
+                <div class="col-lg-12 d-flex justify-content-end"> @* //Right side *@
+                    <button   type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-registered" aria-hidden="true"></i> Register Address
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </section>
+</div>
+ 
+ 
+ 
+ <partial name="_ValidationScriptsPartial"/>
+
+
+@*  For Show State & District , We need to load for All form and dynamic form ,
+ So change the script in Checkout page for reload partial form too
+  *@
+ 
+ 

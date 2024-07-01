@@ -1,0 +1,728 @@
+﻿@using System.Linq
+@using AngleSharp.Io
+@using DocumentFormat.OpenXml.Drawing.Diagrams
+@using EvSef.Core.FilePath
+@using EvSef.Domain.Entities.ContactInfo
+@using EvSef.Domain.ViewModels.Cart
+@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model EvSef.Domain.ViewModels.Cart.CartViewModel
+
+
+@{
+    ViewData["Title"] = "CheckOut";
+    Layout = "_UserPanelLayout";
+
+
+    IEnumerable<ContactLocation>? state = ViewData["State"] as IEnumerable<ContactLocation>;
+    IEnumerable<ContactLocation>? district = ViewData["District"] as IEnumerable<ContactLocation>;
+    var activeTab = ViewData["ActiveTab"];
+    var selectedContactInfoId = ViewData["Address"];
+}
+
+
+
+
+<!--  Content body start
+    ***********************************-->
+<div class="content-body container">
+
+    <div class="row page-titles">
+        <div class="col p-md-0 address-col">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="javascript:void(0)">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a href="javascript:void(0)">Cart</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+    </div>
+</div>
+<!-- #/ container -->
+<!--**********************************
+Content body end
+***********************************-->
+<div class="overlay-section"></div>
+
+<div class="calendar " id="calendar">
+    <div class="header">
+        <button id="prevBtn">&lt;</button>
+        <h2 id="monthYear">Month Year</h2>
+        <button id="nextBtn">&gt;</button>
+    </div>
+    <div class="days" id="daysContainer"></div>
+</div>
+
+
+
+
+ 
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+
+
+            <div class="card bg-gray">
+                <div class="card-body bg-gray">
+
+                    <div class="basic-list-group">
+                        <div class="row">
+                            <partial name="_NavUserPanelMenu" />
+
+                            <div class="col-xl-8 col-md-12 data-col">
+
+
+                                <!-- row -->
+
+                                <div class="container-fluid menu-list-container">
+                                    <div class="row">
+                                        @if (Model.Items != null && Model.Items.Any())
+                                        {
+                                            <div class="col-md-12 clearfix">
+
+
+                                                <form action="#" id="step-form-horizontal" class=" ">
+
+                                                    <div>
+                                                        <h4>Your Order</h4>
+                                                        <section>
+                                                            <div class="row">
+                                                                <div class="col-lg-12 mb-0">
+                                                                    <div id="friday" class="tab-content active">
+                                                                        <div class="col-lg-12 mb-0">
+                                                                            <div>
+                                                                                <div>
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table cart-table">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Image</th>
+                                                                                                    <th>Food Name</th>
+                                                                                                    <th>Price</th>
+                                                                                                    <th>Quantity</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            @foreach (var item in Model.Items)
+                                                                                            {
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td><img class="img menu-profile-img" src="@(FilePath.FoodAvatarImage + item.ImageFood)" alt="Food Image"></td>
+                                                                                                        <td><span class="menu-text">@item.FoodTitle</span></td>
+                                                                                                        <td>@item.ChefFoodsPrice.ToString("N2")</td>
+
+                                                                                                        <td class="col-3">
+                                                                                                            <form asp-controller="Home" method="post" class="d-inline">
+
+                                                                                                                <div class="input-group mb-3 input-group-sm">
+                                                                                                                    <div class="input-group-prepend">
+                                                                                                                        <input type="submit" asp-action="removeFromCart" value="-" class="btn btn-outline-secondary" />
+                                                                                                                        <input type="hidden" name="chefFoodId" value="@item.ChefFoodId" />
+
+                                                                                                                        @Html.AntiForgeryToken()
+                                                                                                                    </div>
+
+                                                                                                                    <input type="text" class="form-control text-center quantity-input" value="@item.Quantity" disabled data-id="@item.ChefFoodId">
+
+                                                                                                                    <div class="input-group-append">
+                                                                                                                        <input type="submit" asp-action="AddToCart" value="+" class="btn btn-outline-secondary" />
+                                                                                                                        <input type="hidden" name="chefFoodId" value="@item.ChefFoodId" />
+                                                                                                                        <input type="hidden" name="stayInCartPage" value="true" />
+
+                                                                                                                        @Html.AntiForgeryToken()
+                                                                                                                    </div>
+                                                                                                                </div>
+
+                                                                                                            </form>
+                                                                                                        </td>
+
+
+                                                                                                </tbody>
+
+                                                                                            }
+                                                                                            <tfoot>
+                                                                                                <tr>
+                                                                                                    <td colspan="4" class="text-right">
+                                                                                                        <div class="d-inline-block" style="margin-right: 50px;">
+                                                                                                            <span class="font-weight-bold">Tax:</span>
+                                                                                                            <input type="text" class="form-control d-inline-block text-center costum_size_tax" value="@Model.Tax.ToString("N2")" disabled="disabled" style="width: 70px;" />
+                                                                                                            <span>%</span>
+                                                                                                        </div>
+                                                                                                        <div class="d-inline-block ml-3" style="margin-right: 50px;">
+                                                                                                            <span class="font-weight-bold">Total Price:</span>
+                                                                                                            <span>@Model.TotalPrice.ToString("N2") TL</span>
+                                                                                                        </div>
+                                                                                                        <div class="d-inline-block ml-3">
+                                                                                                            <span class="font-weight-bold">Final Price:</span>
+                                                                                                            <strong>@Model.FinalPrice.ToString("N2") TL</strong>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tfoot>
+
+                                                                                        </table>
+                                                                                        <div class="btn">
+                                                                                            <a asp-action="Index" asp-controller="Home" asp-area="">Continue Shopping</a>
+                                                                                        </div>
+                                                                                        <div class="btn">
+                                                                                            <form asp-action="ClearCart" method="post">
+                                                                                                <button type="submit" class="btn btn-danger">Delete All</button>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+
+
+
+                                                        <h4>Your Address</h4>
+
+
+                                                        <section>
+                                                            <div id="addressListContainer">
+                                                                <form id="addressSession" >
+                                                                    <input type="hidden" id="address" name="address">
+                                                                    <input type="hidden" id="state" name="state">
+                                                                    <input type="hidden" id="district" name="district">
+                                                                    <input type="hidden" id="zipCode" name="zipCode">
+                                                                    <input type="hidden" id="ContactInfoId" name="ContactInfoId">
+
+                                                                    @if (Model.CartAddresses.Any())
+                                                                    {
+                                                                        foreach (var cartAddress in Model.CartAddresses)
+                                                                        {
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="input-group mb-3">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="input-group-text">
+                                                                                                <input type="radio" name="selectedContactInfoId" value="@cartAddress.ContactInfoId" />
+                                                                                       
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <input asp-for="@cartAddress.Address" type="text" name="address" class="form-control" placeholder="Address" disabled>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-5 mb-3">
+                                                                                    <div class="control-group">
+                                                                                        <label>State</label>
+                                                                                        <div class="input-group">
+                                                                                            <select asp-for="@cartAddress.State" class="form-control">
+                                                                                                <option disabled selected>@cartAddress.State</option>
+
+                                                                                            </select>
+                                                                                            <div class="input-group-append">
+                                                                                                <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-5 mb-3">
+                                                                                    <div class="control-group">
+                                                                                        <label>District</label>
+                                                                                        <div class="input-group">
+                                                                                            <select asp-for="@cartAddress.LocationId" class="form-control">
+                                                                                                <option disabled selected>@cartAddress.District</option>
+
+                                                                                            </select>
+                                                                                            <div class="input-group-append">
+                                                                                                <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-2 mb-3">
+                                                                                    <div class="control-group">
+                                                                                        <label asp-for="@cartAddress.ZipCode">Zip Code</label>
+                                                                                        <input asp-for="@cartAddress.ZipCode" type="number" class="form-control" disabled>
+                                                                                        <span asp-validation-for="@cartAddress.ZipCode"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <hr class="my-4 hr-custom ">
+                                                                        }
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+                                                                                <span class="font-weight-bold">
+
+                                                                                    <button id="btnAddNewAddress" type="button" class="btn btn-primary" data-url="@Url.Action("GetAddNewAddressForm", "Home")">
+                                                                                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Address
+                                                                                    </button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="addNewAddressContainer">
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+                                                                                <span class="font-weight-bold">
+
+                                                                                    <button id="btnAddNewAddress" type="button" class="btn btn-primary" data-url="@Url.Action("GetAddNewAddressForm", "Home")">
+                                                                                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Address
+                                                                                    </button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    <div id="addNewAddressContainer">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </section>
+
+
+
+
+                                                        <!-- Delivery & Pay In Cart -->
+
+
+                                                        <h4>Delivery & Pay</h4>
+                                                        <section id="step-form-vertical">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="basic-form">
+                                                                        <form id="deliveryPaymentForm">
+                                                                            <div class="form-group">
+                                                                                <div class="row">
+                                                                                    <p class="font-weight-bold">Fill your delivery Date & Time</p>
+                                                                                    <div class="col-md-6">
+                                                                                        <label class="text-muted ml-2"> Delivery Date</label>
+                                                                                        <label> <i class="fa fa-fw fa-calendar"></i></label>
+
+                                                                                        <!-- For Change PlaceHolder  -->
+                                                                                        @{
+                                                                                            string deliveryDateStr;
+                                                                                            if (Model.CartDeliveryDateViewModel.DeliveryDate != null && Model.CartDeliveryDateViewModel.DeliveryDate != DateTime.MinValue)
+                                                                                            {
+                                                                                                deliveryDateStr = Model.CartDeliveryDateViewModel.DeliveryDate.ToString("yyyy-MM-dd");
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                deliveryDateStr = DateTime.Today.ToString("yyyy-MM-dd");
+                                                                                            }
+                                                                                        }
+
+                                                                                        <input asp-for="CartDeliveryDateViewModel.DeliveryDate" type="te" class="form-control" id="mdate" name="CartDeliveryDateViewModel.DeliveryDate"
+                                                                                               value="@deliveryDateStr"
+                                                                                               placeholder="@DateTime.Today.ToString("yyyy-MM-dd")">
+
+
+                                                                                        <span asp-validation-for="CartDeliveryDateViewModel.DeliveryDate" class="text-danger"></span>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <label class="text-muted ml-2">Delivery Time</label>
+                                                                                        <input asp-for="CartDeliveryDateViewModel.DeliveryTime" type="text" id="date-format" class="form-control" placeholder="21:44" name="CartDeliveryDateViewModel.DeliveryTime">
+                                                                                        <span asp-validation-for="CartDeliveryDateViewModel.DeliveryTime" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="form-group">
+                                                                                        <textarea asp-for="CartDeliveryDateViewModel.Details" class="form-control" placeholder="Please Add Details" name="CartDeliveryDateViewModel.Details"></textarea>
+                                                                                        <span asp-validation-for="CartDeliveryDateViewModel.Details" class="text-danger"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <h5 class="">Payment Method</h5>
+                                                                                <div class="payment-options">
+                                                                                    <label class="radio-inline mr-3">
+                                                                                        <input asp-for="CartDeliveryDateViewModel.PaymentMethod" type="radio" value="Deposit To Card" name="CartDeliveryDateViewModel.PaymentMethod"> Deposit To Card
+                                                                                        <span asp-validation-for="CartDeliveryDateViewModel.PaymentMethod" class="text-danger"></span>
+                                                                                    </label>
+                                                                                    <label class="radio-inline mr-3">
+                                                                                        <input asp-for="CartDeliveryDateViewModel.PaymentMethod" type="radio" value="Cash" name="CartDeliveryDateViewModel.PaymentMethod"> Cash On Delivery
+                                                                                        <span asp-validation-for="CartDeliveryDateViewModel.PaymentMethod" class="text-danger"></span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+
+                                                    <!--  End Delivery & Pay In Cart -->
+                                                    
+
+                                                    <!--  Review Cart -->
+                                                    <!-- Update View : jquery-steps-init.js -->
+
+                                                        <h4>Review Cart</h4>
+                                                        <section>
+                                                            <form method="get">
+                                                                <div class="row h-100">
+                                                                    <div class="col-12 h-100 d-flex flex-column justify-content-center align-items-center text-center">
+
+                                                                        <div>
+
+                                                                            <div class="table-responsive">
+                                                                                <table class="table cart-table">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Image</th>
+                                                                                            <th>Food Name</th>
+                                                                                            <th>Price</th>
+                                                                                            <th>Quantity</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    @foreach (var item in Model.Items)
+                                                                                    {
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td><img class="img menu-profile-img" src="@(FilePath.FoodAvatarImage + item.ImageFood)" alt="Food Image"></td>
+                                                                                                <td><span class="menu-text">@item.FoodTitle</span></td>
+                                                                                                <td>@item.ChefFoodsPrice.ToString("N2")</td>
+                                                                                                <td>@item.Quantity</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    }
+                                                                                    <tfoot>
+                                                                                        <tr>
+                                                                                            <td colspan="4" class="text-right">
+                                                                                                <div class="d-inline-block" style="margin-right: 50px;">
+                                                                                                    <span class="font-weight-bold">Tax:</span>
+                                                                                                    <input type="text" id="tax" class="form-control d-inline-block text-center costum_size_tax" value="@Model.Tax.ToString("N2")" disabled style="width: 70px;" />
+                                                                                                    <span>%</span>
+                                                                                                </div>
+                                                                                                <div class="d-inline-block ml-3" style="margin-right: 50px;">
+                                                                                                    <span class="font-weight-bold">Total Price:</span>
+                                                                                                    <span id="totalPrice">@Model.TotalPrice.ToString("N2") TL</span>
+                                                                                                </div>
+                                                                                                <div class="d-inline-block ml-3">
+                                                                                                    <span class="font-weight-bold">Final Price:</span>
+                                                                                                    <strong id="finalPrice">@Model.FinalPrice.ToString("N2") TL</strong>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tfoot>
+                                                                                </table>
+                                                                            </div>
+
+                                                                            <hr class="my-4 hr-custom ">
+                                                                             
+                                                                            <section>
+                                                                                <div class="row mb-3">
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="input-group mb-3">
+                                                                                            <div class="input-group-prepend">
+                                                                                                <span class="input-group-text text-cart">Address</span>
+                                                                                            </div>
+                                                                                            <input  id="reviewAddress" type="text" class="form-control" disabled>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-5 mb-3">
+                                                                                        <label>State</label>
+                                                                                        <input id="reviewState" type="text" class="form-control" disabled>
+                                                                                    </div>
+                                                                                    <div class="col-md-5 mb-3">
+                                                                                        <label>District</label>
+                                                                                        <input id="reviewDistrict" type="text" class="form-control" disabled>
+                                                                                    </div>
+                                                                                    <div class="col-md-2 mb-3">
+                                                                                        <label>Zip Code</label>
+                                                                                        <input id="reviewZipCode" type="text" class="form-control" disabled>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </section>
+
+                                                                            <hr class="my-4 hr-custom ">
+                                                                          
+                                                                            <section>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <label>Delivery Date</label>
+                                                                                        <input type="text" id="deliveryDate" class="form-control" disabled />
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <label>Delivery Time</label>
+                                                                                        <input type="text" id="deliveryTime" class="form-control" disabled />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row mt-3">
+                                                                                    <div class="col-lg-12">
+                                                                                        <label>Details</label>
+                                                                                        <textarea id="details" class="form-control" disabled></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                                
+                                                                                <div class="row mb-3">
+                                                                                    <div class="col-lg-12">
+                                                                                        <div class="input-group mb-3">
+                                                                                            <div class="input-group-prepend">
+                                                                                                <span class="input-group-text text-paymentmethod">Payment Method</span>
+                                                                                            </div>
+                                                                                            
+
+                                                                                            <input type="text" id="paymentMethod" class="form-control" value="@Model.CartDeliveryDateViewModel.PaymentMethod" disabled />
+                                                                                           @*  value needs because of disabled *@
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                      
+                                                                            </section>
+
+
+                                                                            <div class="col-lg-12 mt-3 text-right">
+                                                                                <form asp-action="CheckOut" method="post">
+                                                                                    <button type="submit" class="btn btn-primary">Submit Order</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </section>
+
+                                                    </div>
+
+                                                    <!--  End Review Cart -->
+                                                </form>
+
+
+
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-12">
+                                                <p class="text-center bg-light-product pt-5 pb-5 center mb-5 custom-margin-cart">You Don't Have any Item To Buy !</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #/ container -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial" />
+
+@section Scripts
+{
+    <script>
+        // For Show State & District, We need to load for All form and dynamic form, not a common script for show district
+        // So change the script in Checkout page and reload partial form too (work for Dynamic form too)
+
+        // This method for changing in Location_Id
+        function handleLocationChange() {
+            var selectedLocationId = $(this).val();
+            var subLocationSelect = $(this).closest("form").find("#SubLocation_Id");
+            subLocationSelect.empty();
+
+            $.ajax({
+                url: "/UserPanel/Home/GetDistrictGroup/" + selectedLocationId,
+                type: "GET",
+                dataType: "json", // Specify JSON dataType
+                success: function (data) {
+                    $.map(data, function (item) {
+                        subLocationSelect.append('<option value=' + item.locationId + '>' + item.stateName + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('Error occurred while loading districts.');
+                }
+            });
+        }
+
+        function bindAddNewAddressButton() {
+            // Click event for adding new address
+            $("#btnAddNewAddress").click(function () {
+                var url = $(this).data("url");
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (data) {
+                        $("#addNewAddressContainer").empty().append(data);
+                        // Bind change event for Location_Id in dynamically loaded form
+                        $("#addNewAddressContainer").find("form:last #Location_Id").change(handleLocationChange);
+                    },
+                    error: function () {
+                        alert('Error occurred while loading the form.');
+                    }
+                });
+            });
+        }
+
+        function bindSubmitForm() {
+            // Handle initial and dynamic forms change event in Location_Id
+            $("#addNewAddressContainer").on("change", "#Location_Id", handleLocationChange);
+
+            // Handle form submission AddNewAddress Form
+            $("#addNewAddressContainer").on("submit", "form", function (e) {
+                e.preventDefault();
+
+                var $form = $(this);
+                var formData = $form.serialize();
+
+                $.ajax({
+                    url: $form.attr("action"),
+                    type: $form.attr("method"),
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            ShowMessage(response.message); // From My ShowMessage Method
+                            $form.hide();
+
+                            $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+                            // After adding a new address, update the address list
+                            fetchAndUpdateAddressList();
+                        } else {
+                            ShowMessage(response.message);
+                        }
+                    },
+                    error: function () {
+                        ShowMessage('Error occurred while submitting the form.');
+                    }
+                });
+            });
+
+            function fetchAndUpdateAddressList() {
+                $.ajax({
+                    url: '/UserPanel/Home/GetClientContactInfoById', // Update to appropriate controller and action
+                    type: 'GET',
+                    success: function (addresses) {
+                        console.log(addresses); // Check if data is received correctly
+                        var $addressListContainer = $("#addressListContainer"); // Select the container where addresses are displayed
+                        $addressListContainer.empty(); // Clear the current list
+
+                        //Check for update ContactInfoId after AddNewAddress :       <input type="radio" name="selectedContactInfoId" value="${address.contactInfoId}"> or value="$(contactInfoIdValue)"
+
+
+                        // Check if there are addresses
+                        if (addresses.length > 0) {
+                            addresses.forEach(function (address) {
+                                // Check for undefined values and set default values if needed
+                                var addressValue = address.address || '';
+                                var stateValue = address.state || '';
+                                var districtValue = address.district || '';
+                                var zipCodeValue = address.zipCode || '';
+                                var locationIdValue = address.locationId || '';
+                                var contactInfoIdValue = address.contactInfoId || '';
+
+
+                                var addressHtml = `
+                                                <div class="row mb-3">
+                                                    <div class="col-lg-12">
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                               
+                                                                  <input type="radio" name="selectedContactInfoId" value="${address.contactInfoId}">     
+
+                                                                </div>
+                                                            </div>
+                                                                    <input type="text" name="address" class="form-control" placeholder="Address" value="${addressValue}" disabled>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 mb-3">
+                                                        <div class="control-group">
+                                                            <label>State</label>
+                                                            <div class="input-group">
+                                                                <select class="form-control" disabled>
+                                                                    <option disabled selected>${stateValue}</option>
+                                                                </select>
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 mb-3">
+                                                        <div class="control-group">
+                                                            <label>District</label>
+                                                            <div class="input-group">
+                                                                <select class="form-control" disabled>
+                                                                    <option disabled selected>${districtValue}</option>
+                                                                </select>
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 mb-3">
+                                                        <div class="control-group">
+                                                            <label>Zip Code</label>
+                                                                    <input type="number" class="form-control" value="${zipCodeValue}" disabled>
+                                                            <span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                            `;
+                                $addressListContainer.append(addressHtml);
+                            });
+                        }
+
+                        // Add the button to add new addresses
+                        var addNewAddressHtml = `
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <span class="font-weight-bold">
+                                                    <button id="btnAddNewAddress" type="button" class="btn btn-primary" data-url="/Userpanel/Home/GetAddNewAddressForm">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Address
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div id="addNewAddressContainer"></div>
+                                    `;
+                        $addressListContainer.append(addNewAddressHtml);
+
+                        // Re-bind the event handler for the "Add New Address" button
+                        bindAddNewAddressButton();
+                        bindSubmitForm();
+                    },
+                    error: function () {
+                        ShowMessage('Error occurred while fetching addresses.');
+                    }
+                });
+            }
+        }
+
+        // Start the script immediately
+        $(document).ready(function () {
+            bindAddNewAddressButton();
+            bindSubmitForm();
+        });
+
+ 
+    </script>
+
+
+
+
+}
+
+

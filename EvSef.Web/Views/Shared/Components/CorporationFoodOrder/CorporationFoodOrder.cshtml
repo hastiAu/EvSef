@@ -1,0 +1,45 @@
+﻿@using EvSef.Core.FilePath
+@model IEnumerable<EvSef.Domain.ViewModels.CorporationFoodOrder.CorporationFoodOrderViewModel>
+
+@{
+    ViewData["Title"] = "How Order CorporationFood ";
+}
+
+ 
+ 
+<!--How Order-->
+
+<div class=" container">
+    <div class="row justify-content-center    ">
+        <div class="col">
+            <h2 class="   ff-secondary text-center text-primary fw-normal mb-4 my-4">@ViewData["HowOrderCorporationFoodTitle"]</h2>
+
+            <div class="py-6" id="">
+                <div class="container">
+                    
+                   
+                    <div class="row mb-5">
+                        @foreach (var cf in Model)
+                        {
+                        <div class="col-md-3 text-center" data-aos="fade-up" data-aos-delay="">
+                            <img src="@(FilePath.CorporationFoodOrderAvatarImage + cf.CorporationFoodOrderImage)" alt="" class="img-fluid w-25 mb-4">
+                            <h4 class="card-title">@cf.CorporationFoodOrderTitle</h4>
+                            <p>@cf.CorporationFoodOrderDescription
+                            </p>
+                        </div>
+                        }
+                    </div>
+
+                   
+              
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<!-- End How Order-->

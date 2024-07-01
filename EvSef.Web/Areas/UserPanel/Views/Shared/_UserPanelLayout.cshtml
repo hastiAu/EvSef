@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <partial name="_MetaTags"/>
+    <title>Ev Şef | @ViewData["Title"] </title>
+
+    <!-- bootstrap css -->
+    <partial name="__HeaderReferencesCommon" />
+    <partial name="_UserPanelHeaderRefrences" />
+    @*     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ *@</head>
+
+<body >
+
+@await Component.InvokeAsync("SiteHeader")
+@await Component.InvokeAsync("SiteSearch")
+
+ 
+
+
+<main >
+
+
+    @RenderBody()
+
+</main>
+
+
+@await Component.InvokeAsync("SiteFooter")
+
+<partial name="_FooterReferences"/>
+<partial name="_UserPanelFooterRefrences" />
+ 
+
+ 
+ @RenderSection("Scripts", required: false)
+
+
+<partial name="_Notification" />
+<partial name="_ValidationScriptsPartial" />
+<partial name="_Scripts" />
+ 
+</body>
+
+</html>
+

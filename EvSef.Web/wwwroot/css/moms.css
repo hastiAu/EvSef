@@ -1,0 +1,119 @@
+.mom-filter-btn{
+    text-align: left !important;
+    font-weight: normal;
+    height: 52px;
+}
+.mom-filter-btn::after{
+    right: 5px;
+    top: 25px;
+    position: absolute;
+}
+.card{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 20px;
+}
+.card-top-row{
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    justify-items: center;
+    gap: 10px;
+    border: 1px solid rgba(0,0,0,.125);
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+.card-top-item{
+    text-align: center;
+    font-size: 1.2rem;
+}
+.card-top-item:first-child{
+    grid-column: 1/3;
+}
+.card-top-item:not(:first-child){
+    margin-left: -40%;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+}
+.card-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.card-items{
+    width: 100%;
+    /* display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px; */
+    /* padding-right: 20px; */
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    justify-items: center;
+    gap: 10px;
+}
+.card-subtitle-caption{
+    display: none;
+}
+.pagination{
+    justify-content: center;
+    gap: 10px;
+}
+.pagination a{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.pagination :is(li.active,li:hover) a{
+    border: 1px solid #9B6CC8 !important;
+    background-color: #9B6CC8 !important;
+    color: #fff !important;
+}
+
+@media (max-width:992px){
+    .card-top-row{
+        display: none;
+    }
+    .card,.card-items{
+        display: flex;
+        flex-direction: column;
+    }
+    .card-items{
+       gap: 10px;
+    }
+    .card-body,.card-title{
+        justify-content: center;
+        align-self: center;
+    }
+    .card-img{
+        margin: 20px auto auto;
+        border-radius: 50%;
+    }
+    .card-meal-number,.card-min-price{
+        grid-column: 1/3;
+    }
+    .card-subtitle{
+        text-align: center;
+        width: 100%;
+    }
+    .card-subtitle-caption{
+        display: inline-block;
+    }
+}
+
+@media (max-width: 576px){
+    .filters-row{
+        gap: 10px;
+    }
+}

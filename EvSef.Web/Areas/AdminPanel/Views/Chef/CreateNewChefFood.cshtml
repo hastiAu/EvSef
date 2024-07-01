@@ -1,0 +1,186 @@
+﻿@using EvSef.Domain.ViewModels.Food
+@using EvSef.Domain.ViewModels.PriceType
+@using EvSef.Domain.Entities.FoodPrice
+@model EvSef.Domain.ViewModels.ChefFood.CreateChefFoodViewModel
+
+@{
+    ViewData["Title"] = "CreateNewChefFood";
+    List<FoodViewModel>? foodList = ViewData["FoodList"] as List<FoodViewModel>;
+    List<PriceTypeTitleViewModel>? priceType = ViewData["PriceType"] as List<PriceTypeTitleViewModel>;
+}
+
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Chef Food</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="Chef" asp-action="CreateNewChefFood" asp-route-id="ChefId" method="post" enctype="multipart/form-data">
+                                <input type="hidden" asp-for="ChefId" />
+                                <div class="form-row">
+
+                                    <div class="col-lg-4">
+
+                                        <div class="basic-form">
+
+                                            <div class="form-group">
+                                                <label asp-for="FoodSelectedId">Select Food from list:</label>
+
+                                                <select asp-for="FoodSelectedId" class="form-control">
+
+                                                    @if (foodList.Any())
+                                              
+                                                    {
+                                                        @foreach (var item in foodList)
+                                                        {
+                                                            <option value="@item.FoodId"> @item.FoodTitle </option>
+                                                        }
+                                                    }
+
+                                                </select>
+                                                <span asp-validation-for="FoodSelectedId"></span>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group col-lg-4">
+                                        <label asp-for="ChefFoodsPrice">Foods Price (TL)</label>
+                                        <input asp-for="ChefFoodsPrice" class="form-control">
+                                        <span asp-validation-for="ChefFoodsPrice"></span>
+                                    </div>
+
+
+                                    <!-- Card Date Range Pick -->
+
+                                    <div class="col-lg-4">
+                                        <div class="row form-material">
+                                            <div class="col-md-12">
+                                                <label class="m-t-20">Date Range Pick</label>
+                                                <input type="text" class="form-control" name="daterange" id="daterange">
+                                                <input type="hidden" asp-for="ChefFoodPriceFromDate" id="ChefFoodPriceFromDate" />
+                                                <input type="hidden" asp-for="ChefFoodPriceToDate" id="ChefFoodPriceToDate" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Card -->
+
+
+
+                                    <div class="form-group col-md-4">
+                                        <label asp-for="ChefFoodPriceDiscount">Price Discount (TL)</label>
+                                        <input asp-for="ChefFoodPriceDiscount" class="form-control">
+                                        <span asp-validation-for="ChefFoodPriceDiscount"></span>
+                                    </div>
+
+
+
+
+                                    <div class="form-group col-md-4">
+                                        <label asp-for="ChefFoodLimitCount">Limit Count</label>
+                                        <input type="number" asp-for="ChefFoodLimitCount" class="form-control">
+                                        <span asp-validation-for="ChefFoodLimitCount"></span>
+                                    </div>
+
+
+                                    @if (priceType != null)
+                                    {
+                                        <div class="form-group">
+                                            <div class="form-radio">
+
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                <label>Add Price Type</label>
+
+                                                <ul>
+
+                                                    @foreach (var pl in priceType)
+                                                    {
+                                                        <li>
+                                                            <input class="ml-1 form-check-input" name="SelectedPriceType" type="radio" value="@pl.PriceTypeId" id="priceTypeCheckbox">
+                                                            <label class="ml-4" for="priceTypeCheckbox">@pl.PriceTypeName</label>
+                                                        </li>
+
+                                                    }
+
+                                                </ul>
+                                                <span asp-validation-for="SelectedPriceType"></span>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                    <div class="form-group">
+                                        <div class="form-check mt-5 ml-3">
+                                            <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                            <label for="checkbox" class="form-check-label">Active</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="form-check mt-5 ml-3">
+                                            <input id="checkbox" class="form-check-input" type="checkbox" asp-for="ChefFoodPriceIsDefault">
+                                            <label for="checkbox" class="form-check-label">Is default</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create Food </button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#daterange').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 1,
+                locale: {
+                    format: 'MM/DD/YYYY HH:mm'  
+                }
+            }, function (start, end, label) {
+
+                $('#ChefFoodPriceFromDate').val(start.format('YYYY-MM-DD HH:mm:ss'));
+                $('#ChefFoodPriceToDate').val(end.format('YYYY-MM-DD HH:mm:ss'));
+            });
+        });
+    </script>
+}

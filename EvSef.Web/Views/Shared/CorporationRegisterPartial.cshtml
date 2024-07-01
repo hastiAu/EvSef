@@ -1,0 +1,92 @@
+﻿@model EvSef.Domain.ViewModels.Corporation.CorporationRequestViewModel
+
+<div class="register bg-white2 ">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-9">
+                <div class="register-form">
+                    <form asp-controller="Account" asp-action="CorporationRegisterRequest" method="post">
+                        <div class="control-group">
+                            <div class="input-group">
+                                <input asp-for="FirstName" type="text" class="form-control" placeholder="Name" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="far fa-user mb-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="input-group">
+                                <input asp-for="LastName" type="text" class="form-control" placeholder="Surname" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>  
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="far fa-user mb-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="input-group">
+                                <input asp-for="Mobile" type="number" class="form-control" placeholder="Mobile" />
+                                <span asp-validation-for="Mobile" class="text-danger"></span>  
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-mobile-alt mb-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="input-group">
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>  
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fa fa-envelope mb-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="input-group">
+                                <input asp-for="CorporationName" type="text" class="form-control" placeholder="Office Name" />
+                                <span asp-validation-for="CorporationName" class="text-danger"></span>
+                                <div class="input-group-append">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="far fa-address-name mb-4"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="input-group">
+                                <input asp-for="StaffNumber"  type="number" class="form-control" placeholder="Staff Number" />
+                                <span  asp-validation-for="StaffNumber" class="text-danger"></span>                                          
+                                <div class="input-group-append">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-person-number mb-4"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <button class="btn custom-btn" type="submit">Want Corporation Food</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

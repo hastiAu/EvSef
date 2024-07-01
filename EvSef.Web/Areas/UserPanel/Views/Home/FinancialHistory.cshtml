@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewData["Title"] = "FinancialHistory";
+    Layout = "_UserPanelLayout";
+}
+
+<!--**********************************
+Content body start
+***********************************-->
+<div class="profilePage">
+    <div class="content-body container">
+
+        <div class="row page-titles">
+            <div class="col p-md-0 address-col">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0)">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <a href="javascript:void(0)">FinancialHistory</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- row -->
+
+        <div class="container-fluid">
+        </div>
+    </div>
+    <!-- #/ container -->
+    <!--**********************************
+    Content body end
+    ***********************************-->
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <div class="card bg-gray">
+                    <div class="card-body">
+
+                        <div class="basic-list-group">
+                            <div class="row">
+                                <partial name="_NavUserPanelMenu" />
+
+
+                                <div class="col-xl-8 col-md-12 data-col">
+                                    <form>
+                                        <div class="charge-form-col col-lg-12">
+                                            <form method="post">
+                                                <label class="font-weight-bold "> Amount</label>
+                                                <input type="number" class="btn w-50 bg-white">
+                                                <button onclick="postData()" asp-action="" type="submit" class="btn btn btn-primary btn-charge">Charge Wallet</button>
+                                                <span></span>
+
+                                            </form>
+
+
+                                        </div>
+
+                                    </form>
+                                    <!--<div class="alert alert-danger">
+
+                                    </div>-->
+
+                                    <br />
+                                    <div class="col-lg-12">
+                                        <div class="card d-none d-md-block">
+                                            <div class="card-body">
+
+                                                <div class="table-responsive w-100">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr class="text-center">
+                                                                <th>Transaction Type</th>
+                                                                <th>Amount</th>
+                                                                <th>Description</th>
+                                                                <th>Date</th>
+                                                                <th>Payment Type</th>
+                                                                <th>Paid</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-center">
+                                                            <tr>
+                                                                <td>Deposit</td>
+                                                                <td>200 TL</td>
+                                                                <td>
+                                                                    Description
+                                                                </td>
+                                                                <td>January 22</td>
+                                                                <td>Door</td>
+                                                                <td>
+                                                                    <div class="text-success">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                                        </svg>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Deposit</td>
+                                                                <td>200 TL</td>
+                                                                <td>
+                                                                    Description
+                                                                </td>
+                                                                <td>Jan 16</td>
+                                                                <td>Door</td>
+                                                                <td>
+                                                                    <div class="text-danger">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                                            <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
+                                                                        </svg>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Withdraw</td>
+                                                                <td>130 TL</td>
+                                                                <td>
+                                                                    Description
+                                                                </td>
+                                                                <td>MArch 09</td>
+                                                                <td>Door</td>
+                                                                <td>
+                                                                    <div class="text-success">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                                        </svg>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-block d-md-none mobile-cards">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="tranc-type">Deposit</h5>
+                                                    <span>Amount: 200 TL</span>
+                                                    <span>Description: Description</span>
+                                                    <span>Date: January 16</span>
+                                                    <span>Payment Type: Door</span>
+                                                    <span>
+                                                        Paid:
+                                                        <span class="text-danger">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                                <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="tranc-type">Withdraw</h5>
+                                                    <span>Amount: 130 TL</span>
+                                                    <span>Description: Description</span>
+                                                    <span>Date: March 09</span>
+                                                    <span>Payment Type: Door</span>
+                                                    <span>
+                                                        Paid:
+                                                        <span class="text-success">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="tranc-type">Deposit</h5>
+                                                    <span>Amount: 200 TL</span>
+                                                    <span>Description: Description</span>
+                                                    <span>Date: January 22</span>
+                                                    <span>Payment Type: Door</span>
+                                                    <span>
+                                                        Paid:
+                                                        <span class="text-success">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+ 
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,70 @@
+﻿ @using EvSef.Domain.ViewModels.SiteSetting
+@using EvSef.Core.FilePath
+@using EvSef.Domain.ViewModels.MainSlider
+@using DocumentFormat.OpenXml.Office2010.ExcelAc
+ @model EvSef.Domain.ViewModels.Account.RegisterPersonViewModel
+
+@{
+    var sliderImage = ViewData["SliderPhotoFile"];
+    List<MainSliderViewModel>? mainSlider = ViewData["MainSlider"] as List<MainSliderViewModel>;
+}
+
+<section class="home-slider js-fullheight owl-carousel bg-white">
+    <div class="slider-item js-fullheight">
+        <div class="overlay"></div>
+        <div class="container-fluid p-0">
+            <div class="row d-md-flex no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
+                <div class="one-third order-md-last img js-fullheight  ">
+                    <img src="@((FilePath.SiteSettingImage + sliderImage))"  />
+                    <div class="overlay"></div>
+                </div>
+                <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                    <div class="text mt-md-5 form-box">
+                        <h1 class="mb-4">@ViewData["CorporationFormTitle1"] </h1>
+                        <p class="slider-subtitle"> @ViewData["CorporationFormTitle2"] </p>
+
+                        <!---- Corporation Food request-->
+
+                        <partial name="CorporationRegisterPartial"></partial>
+
+                        <!--End Corporation Food request-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Slider-->
+@foreach (var item in mainSlider)
+{
+    <div class="slider-item ">
+        <div class="overlay"></div>
+        <div class="container-fluid p-0">
+            <div class="row d-flex no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
+                    <div class="one-third order-md-last img js-fullheight" style="background-image: url('@((FilePath.MainSliderImage + item.SliderImage))');">
+                        <div class="overlay"></div>
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-center">
+
+                            <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                                <div class="text mt-md-5">
+                                    <h1 class="mb-4">@item.SliderTitle</h1>
+                                    <p>@item.SliderDescription</p>
+                                    
+                                    <p><a Asp-controller="Account" asp-action="registerperson" class="btn btn-register px-4 py-3 mt-3">Now Register</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--End Slider-->
+                </div>
+        </div>
+    </div>
+
+}
+
+</section> 

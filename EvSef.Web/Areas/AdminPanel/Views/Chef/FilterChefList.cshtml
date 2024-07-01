@@ -1,0 +1,196 @@
+﻿@using EvSef.Core.FilePath
+@using EvSef.Domain.Entities.Account
+@model EvSef.Domain.ViewModels.Chef.FilterChefListViewModel
+@{
+    ViewData["Title"] = "CorporationList";
+}
+
+<div class="content-body">
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Chef List</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorText))
+        {
+            <div class="content-body-alert card-costum alert alert-danger">
+                <p> @ViewBag.ErrorText </p>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.SuccessText))
+        {
+            <div class="content-body-alert alert alert-info">
+                <p>@ViewBag.SuccessText</p>
+
+            </div>
+        }
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <form asp-controller="chef" asp-action="FilterChefList" asp-route-chefId="@Model.ChefId"  method="get" id="OurServiceForm">
+                  
+                    <input type="hidden" asp-for="ChefId" />
+                    <div class="card">
+                        <div class="card-body row">
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <input type="text" asp-for="FullName" class="form-control input-default" placeholder="Full Name">
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <input asp-for="MobileNumber" type="number" class="form-control input-default" placeholder="Mobile">
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+
+                                    <select class="form-control show-tick" tabindex="-98 " asp-for="ChefRequestState">
+                                        <option value="0">Confirmed</option>
+
+
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn mb-1 btn-secondary mb-1">Search</button>
+                            </div>
+
+                            <div class="col-md-3 col-sm-12">
+                                <div>
+                                    <a asp-controller="Chef" asp-action="CreateNewChef"  class="button-body btn mb-1 btn-lg custom-btn-create">New Chef</a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <p></p>
+                <!-- /# column -->
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            @if (Model.AllEntitiesCount > 0)
+                            {
+                                <div class="card-title">
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+
+                                                <th class="text-center">Photo</th>
+                                                <th class="text-center">Full Name</th>
+                                                <th class="text-center">Mobile</th>
+
+                                                <th class="text-center">Register Date</th>
+                                                <th class="text-center">Operation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var chef in Model.Chef.Where(u => u.ChefRequestState == ChefRequestState.Confirmed))
+                                            {
+                                                <tr>
+
+                                                    @if (chef.ChefAvatar == null)
+
+                                                    {
+                                                        <td class="text-center">
+                                                            <img class="thumbnail" src="@(FilePath.ChefAvatarImage + "form-user.png"  )" style="max-width: 50px" />
+                                                        </td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="text-center">
+                                                            <img class="thumbnail" src="@(FilePath.ChefAvatarImage + chef.ChefAvatar )" style="max-width: 50px" />
+
+
+                                                        </td>
+                                                    }
+
+
+                                                    <td class="text-center">@chef.FirstName @chef.LastName </td>
+                                                    <td class="text-center">@chef.MobileNumber </td>
+
+                                                    <td class="text-center">@chef.RegisterDate</td>
+
+                                                    <td class="text-center">
+
+                                                        <a title="Edit" data-toggle="tooltip">
+                                                            <i class="icon-size mdi mdi-account-edit"></i>
+                                                        </a>
+                                                        <a title="Delete" data-toggle="tooltip">
+                                                            <i class="icon-size mdi mdi-delete"></i>
+                                                            <a title="Chef Profile" data-toggle="tooltip">
+                                                                <i class="icon-size mdi mdi-face-man-profile"></i>
+                                                            </a>
+                                                        </a>
+                                                        <a asp-controller="Chef" asp-action="ChefFoodList" asp-route-chefId="@chef.ChefId" title="Food List" data-toggle="tooltip">
+                                                            <i class="icon-size mdi mdi-food"></i>
+                                                        </a>
+
+
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                @if (Model.AllPageCount > 1)
+                                {
+                                    <div class="container">
+                                        <div class="col col-sm-12 py-3 ">
+                                            <ul class="pagination">
+                                                @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+                                                {
+                                                    <li class="paginate_button page-item @((Model.PageId == i) ? "active" : "")">
+                                                        <a asp-action="FilterChefList" asp-route-pageId="@i" PFormId="OurServiceForm" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">@i</a>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+
+                            else
+                            {
+                                <div class="alert alert-danger">
+                                    <strong>There Is not any Chef Name.</strong>
+                                </div>
+                            }
+                            <!-- /# column -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

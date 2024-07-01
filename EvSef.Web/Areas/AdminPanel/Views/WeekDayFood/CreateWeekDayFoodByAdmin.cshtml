@@ -1,0 +1,119 @@
+﻿@using EvSef.Domain.ViewModels.ChefFood
+@model EvSef.Domain.ViewModels.WeekDayFood.CreateWeekDayFoodViewModel
+@{
+    ViewData["Title"] = "CreateWeekDayFood";
+    List<ChefFoodViewModel>? allChefFoods = ViewData["AllChefFoods"] as List<ChefFoodViewModel>;
+    
+}
+
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Week Day Food</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="WeekDayFood" asp-action="CreateWeekDayFoodByAdmin" method="post" enctype="multipart/form-data">
+ 
+                                <div class="form-row">
+
+                                    <div class="col-lg-4">
+
+                                        <div class="basic-form">
+
+                                            <div class="form-group">
+                                                <label asp-for="WeekDayName">Select Day from list:</label>
+
+                                                <select asp-for="WeekDayName"  class="form-control">
+                                                    <option value="0">Saturday</option>
+                                                    <option value="1">Sunday</option>
+                                                    <option value="2">Monday</option>
+                                                    <option value="3">Tuesday</option>
+                                                    <option value="4">Wednesday</option>
+                                                    <option value="5">Thursday</option>
+                                                    <option value="6">Friday</option>
+
+                                                </select>
+                                                <span asp-validation-for="WeekDayName"></span>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-lg-4">
+
+                                        <div class="basic-form">
+
+                                            <div class="form-group">
+                                                <label asp-for="SelectedChefFoodId">Chef Food Name</label>
+
+                                                <select asp-for="SelectedChefFoodId" class="form-control">
+
+                                                    @if (allChefFoods.Any())
+
+                                                    {
+
+                                                        @foreach (var item in allChefFoods)
+                                                        {
+                                                            <option value="@item.ChefFoodId"> @item.FoodTitle || @item.ChefName </option>
+
+                                                        }
+
+                                                    }
+                                                    <span asp-validation-for="SelectedChefFoodId"></span>
+
+                                                </select>
+                                                <span ></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="form-group">
+                                        <div class="form-check mt-5 ml-3">
+                                            <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                            <label for="checkbox" class="form-check-label">Active</label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                                <div class="col-md-3 col-sm-12">
+                                    <div class=" ">
+
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create">Create Week Day Food </button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

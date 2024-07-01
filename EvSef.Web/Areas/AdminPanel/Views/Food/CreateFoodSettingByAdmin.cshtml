@@ -1,0 +1,72 @@
+﻿@model EvSef.Domain.ViewModels.PriceType.CreatePriceTypeViewModel
+@{
+    ViewData["Title"] = "CreateFoodSettingByAdmin";
+}
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Food Setting</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="Food" asp-action="CreateFoodSettingByAdmin" method="post" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="PriceTypeName">Price Type Name</label>
+                                        <input asp-for="PriceTypeName" type="text" class="form-control">
+                                        <span asp-validation-for="PriceTypeName"></span>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="PriceTypeCurrency">Price Type Currency</label>
+                                        <input asp-for="PriceTypeCurrency" type="text" class="form-control">
+                                        <span asp-validation-for="PriceTypeCurrency"></span>
+                                    </div>
+                              
+                                </div>
+                              
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input id="checkbox" class="form-check-input" type="checkbox" asp-for="PriceTypeIsDefault">
+                                        <label for="checkbox" class="form-check-label">Is Default</label>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create Price Type </button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

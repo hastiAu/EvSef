@@ -1,0 +1,81 @@
+﻿@model EvSef.Domain.ViewModels.AboutUs.CreateAboutUsViewModel
+@{
+    ViewData["Title"] = "CreateAboutUs";
+}
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create About Us</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="AboutUs" asp-action="CreateAboutUsByAdmin"  method="post" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="AboutUsTitle">AboutUs Title</label>
+                                        <input asp-for="AboutUsTitle" type="text" class="form-control">
+                                        <span asp-validation-for="AboutUsTitle"></span>
+                                    </div>
+                                    <div class="form-group mt-5 ml-5">
+                                        <div class="form-check">
+                                            <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                            <label for="checkbox" class="form-check-label">Active</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label asp-for="AboutUsDescription">AboutUs Description</label>
+                                        <textarea asp-for="AboutUsDescription" class="form-control"></textarea>
+                                        <span asp-validation-for="AboutUsDescription"></span>
+                                    </div>
+                                </div>
+                                
+                                <div  class="row" >
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="AboutUsPhoto1">AboutUs Photo1</label>
+                                        <input asp-for="AboutUsPhoto1" class="form-control" placeholder="Avatar">
+                                        <span asp-validation-for="AboutUsPhoto1"></span>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="AboutUsPhoto2">AboutUs Photo2</label>
+                                        <input asp-for="AboutUsPhoto2" class="form-control" placeholder="Avatar">
+                                        <span asp-validation-for="AboutUsPhoto2"></span>
+                                    </div>
+
+                                </div>
+                      
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create About Us</button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

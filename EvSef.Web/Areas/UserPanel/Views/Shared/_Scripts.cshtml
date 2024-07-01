@@ -1,0 +1,187 @@
+﻿@*  //Set Time In User Panel *@
+
+
+<script>
+    function timePicker(id) {
+        var input = document.getElementById(id);
+        var timePicker = document.createElement('div');
+        timePicker.classList.add('time-picker');
+        input.value = '08:30';
+
+        //open timepicker
+        input.onclick = function () {
+            timePicker.classList.toggle('open');
+
+            this.setAttribute('disabled', 'disabled');
+            timePicker.innerHTML += `
+                        <div class="set-time">
+                            <div class="label">
+                                <a id="plusH" >+</a>
+                                <input class="set" type="text" id="hour" value="08">
+                                <a id="minusH">-</a>
+                            </div>
+                            <div class="label">
+                                <a id="plusM">+</a>
+                                <input class="set" type="text" id="minute" value="30">
+                                <a id="minusM">-</a>
+                            </div>
+                        </div>
+                        <div id="submitTime">Set time</div>`;
+            this.after(timePicker);
+            var plusH = document.getElementById('plusH');
+            var minusH = document.getElementById('minusH');
+            var plusM = document.getElementById('plusM');
+            var minusM = document.getElementById('minusM');
+            var h = parseInt(document.getElementById('hour').value);
+            var m = parseInt(document.getElementById('minute').value);
+            //increment hour
+            plusH.onclick = function () {
+                h = isNaN(h) ? 0 : h;
+                if (h === 23) {
+                    h = -1;
+                }
+                h++;
+                document.getElementById('hour').value = (h < 10 ? '0' : 0) + h;
+            }
+            //decrement hour
+            minusH.onclick = function () {
+                h = isNaN(h) ? 0 : h;
+                if (h === 0) {
+                    h = 24;
+                }
+                h--;
+                document.getElementById('hour').value = (h < 10 ? '0' : 0) + h;
+            }
+            //increment hour
+            plusM.onclick = function () {
+                m = isNaN(m) ? 0 : m;
+                if (m === 45) {
+                    m = -15;
+                }
+                m = m + 15;
+                document.getElementById('minute').value = (m < 10 ? '0' : 0) + m;
+            }
+            //decrement hour
+            minusM.onclick = function () {
+                m = isNaN(m) ? 0 : m;
+                if (m === 0) {
+                    m = 60;
+                }
+                m = m - 15;
+                document.getElementById('minute').value = (m < 10 ? '0' : 0) + m;
+            }
+
+            //submit timepicker
+            var submit = document.getElementById("submitTime");
+            submit.onclick = function () {
+                input.value = document.getElementById('hour').value + ':' + document.getElementById('minute').value;
+                input.removeAttribute('disabled');
+                timePicker.classList.toggle('open');
+                timePicker.innerHTML = '';
+            }
+        }
+    }
+
+    timePicker('date-format');
+
+</script>
+
+
+
+@*  //Set Date In User Panel *@
+
+<script>
+    const daysContainer = document.getElementById("daysContainer");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const monthYear = document.getElementById("monthYear");
+    const dateInput = document.getElementById("mdate");
+    const calendar = document.getElementById("calendar");
+
+    let currentDate = new Date();
+    let selectedDate = null;
+
+    function handleDayClick(day) {
+        selectedDate = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            day
+        );
+        dateInput.value = selectedDate.toLocaleDateString("en-US");
+        calendar.style.display = "none";
+        renderCalendar();
+    }
+
+    function createDayElement(day) {
+        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const dayElement = document.createElement("div");
+        dayElement.classList.add("day");
+
+        if (date.toDateString() === new Date().toDateString()) {
+            dayElement.classList.add("current");
+        }
+        if (selectedDate && date.toDateString() === selectedDate.toDateString()) {
+            dayElement.classList.add("selected");
+        }
+
+        dayElement.textContent = day;
+        dayElement.addEventListener("click", () => {
+            handleDayClick(day);
+        });
+        daysContainer.appendChild(dayElement);
+    }
+
+    function renderCalendar() {
+        daysContainer.innerHTML = "";
+        const firstDay = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            1
+        );
+        const lastDay = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() + 1,
+            0
+        );
+
+        monthYear.textContent = `${currentDate.toLocaleString("default", {
+            month: "long"
+        })} ${currentDate.getFullYear()}`;
+
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            createDayElement(day);
+        }
+    }
+
+    prevBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    nextBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+    dateInput.addEventListener("click", () => {
+        calendar.style.display = "block";
+        positionCalendar();
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!dateInput.contains(event.target) && !calendar.contains(event.target)) {
+            calendar.style.display = "none";
+        }
+    });
+
+    function positionCalendar() {
+        const inputRect = dateInput.getBoundingClientRect();
+        calendar.style.top = 20 + '%';
+        calendar.style.left = 40 + '%';
+    }
+
+    window.addEventListener("resize", positionCalendar);
+
+    renderCalendar();
+
+</script>

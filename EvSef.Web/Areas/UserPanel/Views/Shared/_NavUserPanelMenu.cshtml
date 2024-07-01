@@ -1,0 +1,27 @@
+﻿@using EvSef.Domain.ViewModels.Common
+@using Google.Api
+@using Google.Rpc
+@using Microsoft.VisualBasic
+
+
+@{ 
+    if (Context.Request.Query.TryGetValue("menu", out var menu) && !string.IsNullOrEmpty(menu))
+        menu = menu.ToString().ToLower().Trim();
+
+    // Or id="userProfile" and href To page  || ya  @((menu == UserPanelMenu.CartHistory.ToString().ToLower() ? "active" : ""))"  
+    
+}
+<div class="col-xl-4 col-md-12 mb-4">
+    <div class="list-group" id="list-tab" role="tablist">
+                                            
+ 
+        <a asp-route-chefFoodId="ChefFoodId" data-toggle="list" asp-controller="Home" asp-action="CheckOut" asp-route-menu="AddToCart" asp-route-chefFoodId="chefFoodId" class="list-group-item list-group-item-action    @((menu == UserPanelMenu.AddToCart.ToString().ToLower() ? "active" : ""))" role="tab" aria-controls="profile">Cart</a>
+        <a data-toggle="list" asp-controller="Home" asp-action="CartHistory" asp-route-menu="CartHistory" class="list-group-item list-group-item-action   @((menu == UserPanelMenu.CartHistory.ToString().ToLower() ? "active" : ""))" role="tab"
+           aria-controls="messages">Cart History</a>
+        <a  data-toggle="list" asp-controller="Home" asp-action="FinancialHistory" asp-route-menu="FinancialHistory" class="list-group-item list-group-item-action a   @((menu == UserPanelMenu.FinancialHistory.ToString().ToLower() ? "active" : ""))" role="tab" aria-controls="settings" >Financial History</a>
+        <a data-toggle="list" asp-controller="Home" asp-action="CustomMenu" asp-route-menu="CustomMenu" class="list-group-item list-group-item-action   @((menu == UserPanelMenu.CustomMenu.ToString().ToLower() ? "active" : ""))" role="tab" aria-controls="settings">Custom Menu</a>
+        <a data-toggle="list" asp-controller="Home" asp-action="Help" asp-route-menu="Help" class="list-group-item list-group-item-action  @((menu == UserPanelMenu.Help.ToString().ToLower() ? "active" : ""))" role="tab" aria-controls="settings">Help</a>
+        <a    data-toggle="list" asp-controller="Home" asp-action="UserProfile" asp-route-menu="UserProfile" class="list-group-item list-group-item-action  m  @((menu == UserPanelMenu.UserProfile.ToString().ToLower() ? "active" : ""))" role="tab" aria-controls="settings">Profile</a>
+        <a  data-toggle="list" asp-controller="Home" asp-action="LogOut" asp-route-menu="Logout" asp-route-menu="LogOut" class="list-group-item list-group-item-action    @((menu == UserPanelMenu.LogOut.ToString().ToLower() ? "active" : ""))" role="tab" aria-controls="settings">Exit</a>
+    </div>
+</div>

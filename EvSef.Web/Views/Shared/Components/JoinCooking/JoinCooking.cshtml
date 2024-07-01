@@ -1,0 +1,85 @@
+﻿@using EvSef.Core.FilePath
+@model IEnumerable<EvSef.Domain.ViewModels.JoinUs.JoinUsViewModel>
+
+<div class=" container why-us cooking-why-us">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+
+            <h2 class=" text-uppercase    ff-secondary text-center text-primary fw-normal mb-4 my-4">@ViewData["JoinChefTitle"]</h2>
+           
+            @foreach (var item in Model)
+            {
+          
+                <div class="col-12 col-lg-9">
+                    <div class="card card-span shadow-warning" style="border-radius: 35px;">
+                        <div class="card-body py-5">
+                            <div class=" col-12 ">
+                                <div class="why-img-box cooking-why-img-box mr-auto m-b-1">
+                                    <div class="d-flex d-md-block    ">
+                                        <img class="float-left d-block img-fluid " src="@(FilePath.JoinUsAvatarImage + item.JoinUsImage)" width="200" alt="JoinUsImage" />
+
+
+                                    </div>
+
+                                </div>
+                                <h4 class="why-us-title">
+                                    @item.JoinUsTitle
+                                </h4>
+                                <p class="p-cooking-us  ">
+                                    @item.JoinUsDescription
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <br />
+
+
+            }
+
+        </div>
+      
+
+    </div>
+
+</div>
+@* 
+In Row
+
+<div class="container why-us cooking-why-us">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <h2 class="text-uppercase ff-secondary text-center text-primary fw-normal mb-4 my-4">@ViewData["JoinChefTitle"]</h2>
+
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-12 col-lg-4">
+                        <div class="card card-span shadow-warning mb-4" style="border-radius: 35px;">
+                            <div class="card-body py-5">
+                                <div class="col-12">
+                                    <div class="why-img-box cooking-why-img-box mr-auto m-b-1">
+                                        <div class="d-flex d-md-block">
+                                            <img class="float-left d-block img-fluid" src="@(FilePath.JoinUsAvatarImage + item.JoinUsImage)" width="200" alt="JoinUsImage" />
+                                        </div>
+                                    </div>
+                                    <h4 class="why-us-title">
+                                        @item.JoinUsTitle
+                                    </h4>
+                                    <p class="p-cooking-us">
+                                        @item.JoinUsDescription
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+ *@

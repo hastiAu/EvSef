@@ -1,0 +1,114 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Conventions
+@using EvSef.Core.FilePath
+@using EvSef.Domain.ViewModels.Instagram
+@using DocumentFormat.OpenXml.Office2010.ExcelAc
+@model IEnumerable<EvSef.Domain.ViewModels.Instagram.InstagramViewModel>
+
+ 
+<!--Footer-->
+<footer id="contact" class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-6 col-lg-3">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">@ViewData["SiteName"]</h2>
+                    <p>@ViewData["SiteAboutUs"]</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-left mt-3">
+                        <li class="ftco-animate">
+                            <a href="#"><span class="icon-linkedin"></span></a>
+                        </li>
+                        <li class="ftco-animate">
+                            <a href="#"><span class="icon-facebook"></span></a>
+                        </li>
+                        <li class="ftco-animate">
+                            <a href="#"><span class="icon-instagram"></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Contact Us</h2>
+                    <ul class="list-unstyled open-hours">
+                        <li class="d-flex">
+                            <span>Support</span>
+                            <span>24/7</span>
+                        </li>
+
+                        <li class="d-flex">
+                            <span>Call Us</span>
+                            <span>@ViewData["SitePhone"] </span>
+                        </li>
+                        <li class="d-flex">
+                            <span>Customer</span>
+                            <span>@ViewData["SiteCustomerPhone"]</span>
+                        </li>
+                        <li class="d-flex">
+                            <span>Email</span>
+                            <span>@ViewData["SiteEmail"]</span>
+                        </li>
+                        <li class="d-flex">
+                            <span>Quality Product</span>
+                            <span>Safe Packaging</span>
+                        </li>
+
+                        <li class="d-flex">
+                            <span>Easy Payment</span>
+                            <span>Healthy Food</span>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Newsletter</h2>
+                    <p>Far far away, behind the word mountains, far from the countries.</p>
+                    <form action="#" class="subscribe-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control mb-2 text-center" placeholder="Enter email address">
+                            <input type="submit" value="Subscribe" class="form-control submit px-3">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Instagram</h2>
+                    <div class="thumb d-flex flex-wrap  ">
+
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model.Take(6))
+                            {
+                                <a href="#" class="thumb-menu img" style="background-image: url('@(FilePath.InstagramImage + item.InstagramImage)'); max-width: 90px; max-height: 90px" >
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p class="copy-text">
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script>@ViewData["SiteCopyRight"]
+                    <i class="icon-heart" aria-hidden="true"></i> by
+                    <a href="@ViewData["SiteUrl"]" target="_blank">@ViewData["SiteName"]</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--End Footer-->
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
+</div>

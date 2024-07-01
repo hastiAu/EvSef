@@ -1,0 +1,23 @@
+﻿@using EvSef.Core.FilePath
+@model IEnumerable<EvSef.Domain.ViewModels.OurCustomer.OurCustomerViewModel>
+
+
+
+    <div class=" py-2">
+        <div class="container py-3">
+            <div class="container-fluid py-5 shadow--custom   mb-1 py-4 fadeInUp" data-wow-delay="0.1s">
+                <div class="container ">
+                    <div class="bg-white">
+                        <div class="owl-carousel vendor-carousel">
+                        @foreach (var ourCustomer in Model)
+                        {
+                            <img src=@(FilePath.OurCustomerAvatarImage + ourCustomer.CustomerImage) alt="CustomerImage">
+
+                        }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 

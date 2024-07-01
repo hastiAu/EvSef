@@ -1,0 +1,57 @@
+﻿
+@using EvSef.Core.FilePath
+@model IEnumerable<EvSef.Domain.ViewModels.CustomFood.CustomFoodViewModel>
+
+<div id="customizfood" class="customizfood"></div>
+<div class=" bg-light-product pt-0 best-food">
+    <div class="container">
+        <div class="bg-product text-light rounded-bottom py-3 p-5 my-6 mt-0 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="row g-4 align-items-center">
+                <div class="col-12 col-lg-6">
+                    <h1 class="display-5 text-light mb-0">@ViewData["SloganTitle"] </h1>
+                </div>
+                <div class="col-12 col-lg-6 text-lg-end">
+                    <div class="d-inline-flex align-items-center text-start">
+                        <span class="phone-icon">
+                            <i class="fa fa-phone-alt fa-4x flex-shrink-0"></i>
+                        </span>
+                        <div class="ms-4">
+                            <p class="fs-5 fw-bold mb-0"> Call Us </p>
+                            <p class="fs-1 phone-site mb-1 ml-1 fw-bold"> @ViewData["Phone"]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mx-auto mb-3 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+        </div>
+        
+      
+        <div class="row">
+            @foreach (var customFood in Model)
+            {
+                <div class="col-lg-6 col-md-6 wow fadeInUp mx-auto mb-3" data-wow-delay="0.1s">
+                    <div class="product-item d-flex flex-column bg-white rounded overflow-hidden h-100">
+                        <div class="text-center p-4">
+
+                            <div class="position-relative mt-auto product-imgBox">
+                                <img class=" " src=@(FilePath.CustomFoodImage + customFood.CustomFoodImage) alt="CustomFoodImage" , style="width: 70px; height: 70px;">
+                            </div>
+                            <h3 class="mb-1">
+                                <div class="d-inline-block border border-primary rounded-pill pt-1 px-3">@customFood.CustomFoodTitle</div>
+                            </h3>
+                            <span>@customFood.CustomFoodDescription</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+        </div>
+      
+       
+    </div>
+</div>
+
+ 
+ 

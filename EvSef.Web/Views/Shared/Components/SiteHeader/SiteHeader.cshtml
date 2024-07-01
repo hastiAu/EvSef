@@ -1,0 +1,111 @@
+﻿@using EvSef.Domain.ViewModels.Account
+@using EvSef.Core.FilePath
+@using EvSef.Domain.Entities.UserType
+@using EvSef.Domain.ViewModels.Restaurant
+@using DocumentFormat.OpenXml.Office2010.ExcelAc
+
+@{
+    var logo = ViewData["Logo"];
+    var cartAmount = ViewData["CartItemCount"];
+    List<RestaurantListViewModel>? restaurantList = ViewData["Restaurant"] as List<RestaurantListViewModel>;
+}
+
+<header>
+ 
+    <!-- Navbar start -->
+    <div class="container-fluid shadow--custom  ">
+
+        <div class="container-xl px-0 ">
+            <nav class=" navbar navbar-light bg-white navbar-expand-xl">
+                <div class="menu-img navbar-brand">
+                    <a asp-controller="Home" asp-action="Index" asp-area="">
+                        <img src="@(FilePath.SiteSettingImage + logo ) " width="60" height="60" alt="Image">
+                    </a>
+                </div>
+
+                <button class="navbar-toggler  py-2 px-3" type="button">
+                    <span class="fa fa-bars text-primary"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <!--<a href="index.html" class="nav-item nav-link active">Home</a>-->
+
+
+                    <a href="/#menu" class="nav-item nav-link " data-isredirect="False">Daily Food</a>
+                    <a asp-controller="CorporationFood" asp-action="CorporationFood" class="nav-item nav-link ">Corporation Food</a>
+                    <a href="/#customizfood" class="nav-item nav-link">Customized Food</a>
+                    <a asp-controller="Chef" asp-action="CreateChefRequestInSite" class="nav-item nav-link">Be Chef</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Restaurants</a>
+                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
+
+                                @foreach (var re in restaurantList)
+                                {
+                                    <a href="@re.RestaurantUrl" class="dropdown-item">@re.RestaurantName</a>
+                                }
+                         
+
+                        </div>
+                    </div>
+                        
+                    <a asp-controller="About" asp-action="AboutUs" class="nav-item nav-link">About</a>
+                    <a href="/#contact" class="nav-item nav-link">Contact</a>
+                </div>
+
+                    <div class="d-flex m-3 me-0">
+                        <button class="btn-search btn border btn-md-square rounded-circle bg-white" data-bs-toggle="modal" data-bs-target="#searchModal">
+                            <i class="fas fa-search text-primary"></i>
+                        </button>
+                   
+ 
+                        <!-- لینک سبد خرید -->
+                        @await Component.InvokeAsync("BasketStatus")
+
+                        @{
+                            System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+@*                             <input type="hidden" id="isAuthenticated" name="IsAuthenticated" value="true"/>
+ *@
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Welcome @* @User.Identity.Name *@</a>
+                                <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                    <a asp-controller="home" asp-action="CheckOut" asp-area="UserPanel" method="get" isAuthenticated="true" class="dropdown-item">User Panel</a>
+
+                                    <a href="/Logout" class="dropdown-item">Exit</a>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <button id="loginButton" data-url="@Url.Action("Login", "Account")" class="mobile-call-menu login-border bg-white">
+                                <i class="fas fa-user fa-2x"></i>
+                            </button>
+
+                            <!-- Placeholder for the modal -->
+                            <div id="placeHolderHere"></div>
+                            <input type="hidden" id="isAuthenticated" value="@User.Identity.IsAuthenticated" />
+
+ 
+                        }
+
+               
+          
+                   
+                    </div>
+
+                   
+                </div>
+
+            </nav>
+
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+</header>
+
+ 

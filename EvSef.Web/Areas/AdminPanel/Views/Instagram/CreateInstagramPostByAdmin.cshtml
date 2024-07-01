@@ -1,0 +1,70 @@
+﻿@model EvSef.Domain.ViewModels.Instagram.CreateInstagramViewModel
+
+@{
+    ViewData["Title"] = "CreateInstagramPostByAdmin";
+}
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Instagram Post</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="Instagram" asp-action="CreateInstagramPostByAdmin"  method="post" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="InstagramUrl">Instagram Url</label>
+                                        <input asp-for="InstagramUrl" type="Url" class="form-control">
+                                        <span asp-validation-for="InstagramUrl"></span>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="InstagramPostPhoto">Instagram Post Photo</label>
+                                        <input asp-for="InstagramPostPhoto" class="form-control">
+                                        <span asp-validation-for="InstagramPostPhoto"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                            <label for="checkbox" class="form-check-label">Active</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create Instagram Post</button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+.add-to-cart {
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    margin-left: 5px;
+    border-radius: 50%;
+    padding: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9b6cc8;
+    cursor: pointer;
+}
+
+.best-food {
+    /* padding-top: 30px; */
+}
+
+.best-food .bg-product {
+    /* border-radius: 40px !important; */
+}
+
+.best-food .phone-icon {
+    /* margin-right: 10px;
+    -webkit-animation: shake 1s ease-in-out forwards infinite;
+    animation: shake 1s ease-in-out forwards infinite;
+    -webkit-animation-delay: .5s;
+    animation-delay: .5s; */
+}
+
+
+.cart-counter {
+    top: -10px;
+    left: 45px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50% !important;
+    background-color: #999 !important;
+    padding: 10px !important;
+}
+
+@keyframes shake {
+    0% {
+        transform: skewX(-15deg);
+    }
+
+    5% {
+        transform: skewX(15deg);
+    }
+
+    10% {
+        transform: skewX(-15deg);
+    }
+
+    15% {
+        transform: skewX(15deg);
+    }
+
+    20% {
+        transform: skewX(0deg);
+    }
+
+    100% {
+        transform: skewX(0deg);
+    }
+}
+
+@media (max-width: 576px) {
+    .menu-text>h3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-height: 450px) {
+    .owl-carousel.home-slider {
+        height: 900px !important;
+    }
+
+    .owl-carousel.home-slider .slider-item .slider-text .one-third {
+        height: 800px !important;
+    }
+
+    .owl-carousel.home-slider .slider-item .slider-text .one-forth {
+        height: 700px !important;
+    }
+}
+
+@media (max-width:576px) {
+    .cutom-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width:400px) {
+    .owl-carousel.home-slider {
+        height: 800px !important;
+    }
+
+    .owl-carousel.home-slider .slider-item .slider-text .one-third {
+        height: 850px !important;
+    }
+
+    .owl-carousel.home-slider .slider-item .slider-text .one-forth {
+        height: 700px !important;
+    }
+}
+

@@ -1,0 +1,323 @@
+﻿@model EvSef.Domain.ViewModels.SiteSetting.SiteSettingViewModel
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Site Setting</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div>
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorText))
+    {
+        <div class="content-body-alert card-costum alert alert-danger">
+
+            <p> @ViewBag.ErrorText </p>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.SuccessText))
+    {
+        <div class="content-body-alert card-costum alert alert-info">
+            <p id="SuccessText">@ViewBag.SuccessText</p>
+
+        </div>
+    }
+</div>
+<form asp-controller="SiteSetting" asp-action="Index" asp-route-SiteSettingId="SiteSettingId" enctype="multipart/form-data">
+    <input type="hidden" asp-for="SiteSettingId" />
+    <div class="content-body">
+
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">
+                                <code></code>
+                            </p>
+                            <div id="accordion-three" class="accordion">
+                                <!-- Website Accordion -->
+                                <div class="card">
+
+                                    <div class="card-header">
+                                        <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1"><i class="fa" aria-hidden="true"></i> Web Site</h5>
+                                    </div>
+                                    <div id="collapseOne1" class="collapse show " data-parent="#accordion-three">
+
+                                        <div class="card-body">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SiteEmail">Site Name</label>
+                                                        <input asp-for="SiteName" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="SiteName"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SiteAboutUs">Site AboutUs</label>
+                                                        <input asp-for="SiteAboutUs" type="text" class="form-control input-default">
+                                                        <span asp-validation-for="SiteAboutUs"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SiteEmail">Site Email</label>
+                                                        <input asp-for="SiteEmail" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="SiteEmail"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SitePhone">Site Phone</label>
+                                                        <input asp-for="SitePhone" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="SitePhone"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SiteCustomerPhone">Site Phone customer</label>
+                                                        <input asp-for="SiteCustomerPhone" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="SiteCustomerPhone"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SiteUrl">Site Url</label>
+                                                        <input asp-for="SiteUrl" type="url" class="form-control input-default" >
+                                                        <span asp-validation-for="SiteUrl"></span>
+                                                    </div>
+                                                </div>
+                                     
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SiteCopyRight">Site CopyRight</label>
+                                                        <input asp-for="SiteCopyRight" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="SiteCopyRight"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="InstagramUrl">Instagram Url</label>
+                                                        <input asp-for="InstagramUrl" type="url" class="form-control input-default">
+                                                        <span asp-validation-for="InstagramUrl"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SloganTitle">Slogan</label>
+                                                        <input asp-for="SloganTitle" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="SloganTitle"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="Tax">Tax %</label>
+                                                        <input asp-for="Tax" type="text" class="form-control input-default">
+                                                        <span asp-validation-for="Tax"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="LogoFile">Logo File</label>
+                                                        <input asp-for="LogoFile" class="form-control input-default" >
+                                                        <span asp-validation-for="LogoFile"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Title Section Accordion-->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="False" aria-controls="collapseOne2"><i class="fa" aria-hidden="true"></i> Section Title</h5>
+                                    </div>
+                                    <div id="collapseOne2" class="collapse " data-parent="#accordion-three">
+
+                                        <div class="card-body">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="CorporationFormTitle1">Corporation Form Title1</label>
+                                                        <input asp-for="CorporationFormTitle1" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="CorporationFormTitle1"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="SliderPhotoFile">Slider Photo File</label>
+                                                        <input asp-for="SliderPhotoFile"  class="form-control input-default">
+                                                        <span asp-validation-for="SliderPhotoFile"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="CorporationFormTitle2">Second Corporation Form Title2</label>
+                                                        <textarea asp-for="CorporationFormTitle2" type="text" class="form-control input-default" ></textarea>
+                                                        <span asp-validation-for="CorporationFormTitle2"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="OurServiceTitle">Our Service Title</label>
+                                                        <input asp-for="OurServiceTitle" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="OurServiceTitle"></span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="FoodMenuTitle">Food Menu Title</label>
+                                                        <input asp-for="FoodMenuTitle" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="FoodMenuTitle"></span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="OurChefTitle">Our Chef Title</label>
+                                                        <input asp-for="OurChefTitle" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="OurChefTitle"></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Corporation Food  Accordion -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="False" aria-controls="collapseOne5"><i class="fa" aria-hidden="true"></i> Corporation Food Page</h5>
+                                    </div>
+                                    <div id="collapseOne5" class="collapse " data-parent="#accordion-three">
+
+                                        <div class="card-body">
+                                            <div class="row clearfix">
+
+
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="CorporationFoodTitle"> Corporation Food Title</label>
+                                                        <input asp-for="CorporationFoodTitle" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="CorporationFoodTitle"></span>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="HowOrderCorporationFoodTitle">How Order Corporation Food Title</label>
+                                                        <input asp-for="HowOrderCorporationFoodTitle" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="HowOrderCorporationFoodTitle"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="CorporationFoodDescription">Corporation Food Description</label>
+                                                        <textarea asp-for="CorporationFoodDescription" type="text" class="form-control input-default" ></textarea>
+                                                        <span asp-validation-for="CorporationFoodDescription"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- BeChef Accordion -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="False" aria-controls="collapseOne4"><i class="fa" aria-hidden="true"></i> Be Chef Page</h5>
+                                    </div>
+                                    <div id="collapseOne4" class="collapse " data-parent="#accordion-three">
+
+                                        <div class="card-body">
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="BeChefTitle">BeChef Title</label>
+                                                        <input asp-for="BeChefTitle" type="text" class="form-control input-default" >
+                                                        <span asp-validation-for="BeChefTitle"></span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="BeChefImageFile">BeChef File</label>
+                                                        <input asp-for="BeChefImageFile" class="form-control input-default">
+                                                        <span asp-validation-for="BeChefImageFile"></span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="BeChefDescription">BeChef Description</label>
+                                                        <textarea asp-for="BeChefDescription" type="text" class="form-control input-default" ></textarea>
+                                                        <span asp-validation-for="BeChefDescription"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="JoinChefTitle">Join Chef Title</label>
+                                                        <input asp-for="JoinChefTitle" type="text" class="form-control input-default" >
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 mb-2">
+                                                    <div class="form-group">
+                                                        <label asp-for="ReasonChefTitle">Reason Chef Title</label>
+                                                        <input asp-for="ReasonChefTitle" type="text" class="form-control input-default" >
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <div class=" ">
+                                    <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Edit Site Setting</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts
+{
+
+
+    <partial name="_ValidationScriptsPartial" />
+}
+

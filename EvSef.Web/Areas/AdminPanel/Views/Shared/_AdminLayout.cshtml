@@ -1,0 +1,48 @@
+﻿
+<html lang="en">
+<head>
+
+    <partial name="_MetaTags" />
+
+    <title>Admin Panel | @ViewData["Title"] </title>
+   
+    <partial name="_HeaderReferences" />
+    <partial name="Styles" />
+    @RenderSection("Styles", false)
+</head>
+
+
+<body>
+    <div id="main-wrapper">
+        <!-- Page Loader Partial -->
+        <partial name="_Pageloader" />
+
+        <!--NavBarHead Partial-->
+        <partial name="_NavBarHead" />
+
+        <!--Header Partial-->
+        <partial name="_Header" />
+
+        <!--LeftSideBar Partial-->
+        <partial name="_LeftSidebar" />
+
+
+        <!-- Main Content -->
+        @RenderBody()
+
+        <!-- Footer Partial-->
+
+        <partial name="_Footer" />
+     
+        <!-- Scripts Partial -->
+        <partial name="Scripts" />
+
+        @RenderSection("Scripts", false)
+     
+        <partial name="_ValidationScriptsPartial" />
+        
+    </div>
+</body>
+
+
+</html>

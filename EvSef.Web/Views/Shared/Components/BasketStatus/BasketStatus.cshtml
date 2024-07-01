@@ -1,0 +1,6 @@
+﻿@model int
+
+<a href="@Url.Action("CheckOut", "Home", new { area = "UserPanel" })" class="position-relative my-auto cart-button">
+    <i class="fa fa-shopping-bag fa-2x"></i>
+    <span class="cart-counter position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1">@Model</span>
+</a>

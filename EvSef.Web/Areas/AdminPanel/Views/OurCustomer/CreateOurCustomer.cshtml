@@ -1,0 +1,73 @@
+﻿@model EvSef.Domain.ViewModels.OurCustomer.CreateOurCustomerViewModel
+@{
+    ViewData["Title"] = "CreateOurCustomer";
+}
+
+
+<div class="row page-titles mx-0">
+    <div class="col p-md-0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Create Our Customer</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <form asp-controller="OurCustomer" asp-action="CreateOurCustomer" method="post" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="OurCustomerName">Customer Name</label>
+                                        <input asp-for="OurCustomerName" type="text" class="form-control">
+                                        <span asp-validation-for="OurCustomerName"></span>
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label asp-for="CustomerAvatar">Customer Avatar</label>
+                                        <input asp-for="CustomerAvatar" class="form-control" placeholder="Avatar">
+                                        <span asp-validation-for="CustomerAvatar"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label asp-for="OurCustomerDescription">Customer Description</label>
+                                    <textarea asp-for="OurCustomerDescription" type="text" class="form-control"></textarea>
+                                    <span asp-validation-for="OurCustomerDescription"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input id="checkbox" class="form-check-input" type="checkbox" asp-for="IsActive">
+                                        <label for="checkbox" class="form-check-label">Active</label>
+                                    </div>
+                                </div>
+
+                               
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <div class=" ">
+                                        <button type="submit" class="button-body btn mb-1 btn-lg custom-btn-create button-float">Create our Customer </button>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

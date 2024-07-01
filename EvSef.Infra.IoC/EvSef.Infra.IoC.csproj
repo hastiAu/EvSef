@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EvSef.Core\EvSef.Core.csproj" />
+    <ProjectReference Include="..\EvSef.Domain\EvSef.Domain.csproj" />
+    <ProjectReference Include="..\EvSef.Infra.Data\EvSef.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
