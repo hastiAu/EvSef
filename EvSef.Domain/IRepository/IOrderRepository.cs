@@ -18,15 +18,16 @@ namespace EvSef.Domain.IRepository
         Task CreateNewContactInfoByClient(ContactInfo contactInfo);
         Task<bool> AddressIsExists(string address);
         Task<RelatedType> GetRelatedTypeByClientId(int clientId);
+        Task<int> GetClientIdByRelatedId(int userId);
         CartAddressViewModel GetAddressDetailsById(int contactInfoId);
         #endregion
 
-    
+
 
         #region Create Order
 
-        //Task CreateOrder (Order order);
-
+        Task CreateFinalOrder(Order order);
+        Task<bool> OrderNumberIsExists (string orderNumber);
         #endregion
 
         #region Save

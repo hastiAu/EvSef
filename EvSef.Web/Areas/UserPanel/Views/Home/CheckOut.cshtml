@@ -58,9 +58,6 @@ Content body end
 
 
 
-
- 
-
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -77,10 +74,21 @@ Content body end
 
 
                                 <!-- row -->
+                                <!-- Confirmation Order -->
+                                
+                            <div class="col-12">
+                                <div class="text-center bg-light-product pt-5 pb-5 center mb-5 custom-margin-cart" id="confirmationMessage" style="display: none;">
+                                    <h2>سفارش شما با شماره <span id="orderNumber"></span> با موفقیت ثبت شد!</h2>
+                                    <p>از خرید شما سپاسگزاریم. جزئیات سفارش به ایمیل شما ارسال خواهد شد.</p>
+                                </div>
+                            </div>
+
+                         
+
 
                                 <div class="container-fluid menu-list-container">
                                     <div class="row">
-                                        @if (Model.Items != null && Model.Items.Any())
+                                        @if (Model.Items.Any())
                                         {
                                             <div class="col-md-12 clearfix">
 
@@ -188,12 +196,14 @@ Content body end
 
                                                         <section>
                                                             <div id="addressListContainer">
-                                                                <form id="addressSession" >
+                                                                <form id="addressSession">
                                                                     <input type="hidden" id="address" name="address">
                                                                     <input type="hidden" id="state" name="state">
                                                                     <input type="hidden" id="district" name="district">
                                                                     <input type="hidden" id="zipCode" name="zipCode">
                                                                     <input type="hidden" id="ContactInfoId" name="ContactInfoId">
+                                                                    <input type="hidden" id="LocationId" name="LocationId">
+
 
                                                                     @if (Model.CartAddresses.Any())
                                                                     {
@@ -205,7 +215,7 @@ Content body end
                                                                                         <div class="input-group-prepend">
                                                                                             <div class="input-group-text">
                                                                                                 <input type="radio" name="selectedContactInfoId" value="@cartAddress.ContactInfoId" />
-                                                                                       
+
 
                                                                                             </div>
                                                                                         </div>
@@ -358,11 +368,9 @@ Content body end
                                                             </div>
                                                         </section>
 
-                                                    <!--  End Delivery & Pay In Cart -->
-                                                    
-
-                                                    <!--  Review Cart -->
-                                                    <!-- Update View : jquery-steps-init.js -->
+                                                        <!--  End Delivery & Pay In Cart -->
+                                                        <!--  Review Cart -->
+                                                        <!-- Update View : jquery-steps-init.js -->
 
                                                         <h4>Review Cart</h4>
                                                         <section>
@@ -416,15 +424,16 @@ Content body end
                                                                             </div>
 
                                                                             <hr class="my-4 hr-custom ">
-                                                                             
+
                                                                             <section>
+
                                                                                 <div class="row mb-3">
                                                                                     <div class="col-lg-12">
                                                                                         <div class="input-group mb-3">
                                                                                             <div class="input-group-prepend">
                                                                                                 <span class="input-group-text text-cart">Address</span>
                                                                                             </div>
-                                                                                            <input  id="reviewAddress" type="text" class="form-control" disabled>
+                                                                                            <input id="reviewAddress" type="text" class="form-control" disabled>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -445,7 +454,7 @@ Content body end
                                                                             </section>
 
                                                                             <hr class="my-4 hr-custom ">
-                                                                          
+
                                                                             <section>
                                                                                 <div class="row">
                                                                                     <div class="col-md-6">
@@ -463,30 +472,24 @@ Content body end
                                                                                         <textarea id="details" class="form-control" disabled></textarea>
                                                                                     </div>
                                                                                 </div>
-                                                                                
+
                                                                                 <div class="row mb-3">
                                                                                     <div class="col-lg-12">
                                                                                         <div class="input-group mb-3">
                                                                                             <div class="input-group-prepend">
                                                                                                 <span class="input-group-text text-paymentmethod">Payment Method</span>
                                                                                             </div>
-                                                                                            
+
 
                                                                                             <input type="text" id="paymentMethod" class="form-control" value="@Model.CartDeliveryDateViewModel.PaymentMethod" disabled />
-                                                                                           @*  value needs because of disabled *@
+                                                                                            @*  value needs because of disabled *@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
 
-                                                                      
+
                                                                             </section>
 
-
-                                                                            <div class="col-lg-12 mt-3 text-right">
-                                                                                <form asp-action="CheckOut" method="post">
-                                                                                    <button type="submit" class="btn btn-primary">Submit Order</button>
-                                                                                </form>
-                                                                            </div>
                                                                         </div>
 
                                                                     </div>
@@ -587,7 +590,9 @@ Content body end
                     data: formData,
                     success: function (response) {
                         if (response.success) {
+
                             ShowMessage(response.message); // From My ShowMessage Method
+
                             $form.hide();
 
                             $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -629,73 +634,73 @@ Content body end
 
 
                                 var addressHtml = `
-                                                <div class="row mb-3">
-                                                    <div class="col-lg-12">
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <div class="input-group-text">
-                                                               
-                                                                  <input type="radio" name="selectedContactInfoId" value="${address.contactInfoId}">     
+                                                        <div class="row mb-3">
+                                                            <div class="col-lg-12">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+
+                                                                          <input type="radio" name="selectedContactInfoId" value="${address.contactInfoId}">
+
+                                                                        </div>
+                                                                    </div>
+                                                                            <input type="text" name="address" class="form-control" placeholder="Address" value="${addressValue}" disabled>
 
                                                                 </div>
                                                             </div>
-                                                                    <input type="text" name="address" class="form-control" placeholder="Address" value="${addressValue}" disabled>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-5 mb-3">
-                                                        <div class="control-group">
-                                                            <label>State</label>
-                                                            <div class="input-group">
-                                                                <select class="form-control" disabled>
-                                                                    <option disabled selected>${stateValue}</option>
-                                                                </select>
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                                            <div class="col-md-5 mb-3">
+                                                                <div class="control-group">
+                                                                    <label>State</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control" disabled>
+                                                                            <option disabled selected>${stateValue}</option>
+                                                                        </select>
+                                                                        <div class="input-group-append">
+                                                                            <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5 mb-3">
+                                                                <div class="control-group">
+                                                                    <label>District</label>
+                                                                    <div class="input-group">
+                                                                        <select class="form-control" disabled>
+                                                                            <option disabled selected>${districtValue}</option>
+                                                                        </select>
+                                                                        <div class="input-group-append">
+                                                                            <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 mb-3">
+                                                                <div class="control-group">
+                                                                    <label>Zip Code</label>
+                                                                            <input type="number" class="form-control" value="${zipCodeValue}" disabled>
+                                                                    <span></span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-5 mb-3">
-                                                        <div class="control-group">
-                                                            <label>District</label>
-                                                            <div class="input-group">
-                                                                <select class="form-control" disabled>
-                                                                    <option disabled selected>${districtValue}</option>
-                                                                </select>
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text"><i class="fa fa-chevron-down"></i></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 mb-3">
-                                                        <div class="control-group">
-                                                            <label>Zip Code</label>
-                                                                    <input type="number" class="form-control" value="${zipCodeValue}" disabled>
-                                                            <span></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr/>
-                                            `;
+                                                        <hr/>
+                                                    `;
                                 $addressListContainer.append(addressHtml);
                             });
                         }
 
                         // Add the button to add new addresses
                         var addNewAddressHtml = `
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <span class="font-weight-bold">
-                                                    <button id="btnAddNewAddress" type="button" class="btn btn-primary" data-url="/Userpanel/Home/GetAddNewAddressForm">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i> Add New Address
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div id="addNewAddressContainer"></div>
-                                    `;
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <span class="font-weight-bold">
+                                                            <button id="btnAddNewAddress" type="button" class="btn btn-primary" data-url="/Userpanel/Home/GetAddNewAddressForm">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i> Add New Address
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div id="addNewAddressContainer"></div>
+                                            `;
                         $addressListContainer.append(addNewAddressHtml);
 
                         // Re-bind the event handler for the "Add New Address" button
@@ -715,7 +720,7 @@ Content body end
             bindSubmitForm();
         });
 
- 
+
     </script>
 
 

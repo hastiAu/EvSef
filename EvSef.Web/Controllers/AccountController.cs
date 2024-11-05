@@ -140,8 +140,6 @@ namespace EvSef.Web.Controllers
         #endregion
 
 
-
-
         #region LogOut
 
         [Route("LogOut")]

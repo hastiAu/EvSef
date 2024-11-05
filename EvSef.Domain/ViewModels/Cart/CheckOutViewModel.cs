@@ -16,4 +16,18 @@ namespace EvSef.Domain.ViewModels.Cart
         public decimal TotalPrice { get; set; }
         public decimal FinalPrice { get; set; }
     }
+
+    public enum CheckOutResult
+    {
+        Success,
+        NotFound,
+        CheckOutIsExist
+    }
+
+    public class CheckOutResultModel
+    {
+        public CheckOutResult Result { get; set; }
+        public string OrderNumber { get; set; }
+    }
+
 }

@@ -2,12 +2,14 @@
 
 namespace EvSef.Core.Generator
 {
-    public class RandomNumber
+    public static class RandomNumber
     {
-        public static int Random(int min, int max)
+        private static readonly Random _rand = new Random();
+
+        public static int Generate(int min, int max)
         {
-            var rand = new Random();
-            return rand.Next(min, max);
+            return _rand.Next(min, max);
         }
     }
+
 }

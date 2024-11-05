@@ -18,7 +18,7 @@ namespace EvSef.Domain.Entities.Order
         public int ClientId  { get; set; }
 
         [Display(Name = "Order Number")]
-        public int OrderNumber  { get; set; }
+        public string OrderNumber { get; set; }
 
         public int ContactInfoId  { get; set; }
 
@@ -41,7 +41,7 @@ namespace EvSef.Domain.Entities.Order
         public decimal OrderTotalDiscountAmount  { get; set; }
 
         [Display(Name = "Order Description")]
-        public string  OrderDescription  { get; set; }
+        public string OrderDescription { get; set; }
 
 
         [Display(Name = "Delivery Date")]
@@ -65,7 +65,9 @@ namespace EvSef.Domain.Entities.Order
         [ForeignKey("ContactInfoId")]
         public ContactInfo.ContactInfo ContactInfo { get; set; }
 
-        public ICollection<OrderDetails.OrderDetails> OrderDetails { get; set; }
+        public ICollection<OrderDetails.OrderDetails> OrderDetails { get; set; } = new List<OrderDetails.OrderDetails>();
+
+        // new List:  Create an empty list after create object, and no need to set value ==> for prevent NullReferenceException error
 
         #endregion
 

@@ -125,6 +125,22 @@ namespace EvSef.Infra.Data.Repository
             return client.RelatedType;
         }
 
+        public  async Task<int> GetClientIdByRelatedId(int userId)
+        {
+            var client = await _context.Clients
+                .Where(c => c.RelatedId == userId)
+                .Select(c => c.ClientId)
+                .FirstOrDefaultAsync();
+
+
+            if (client == 0)
+            {
+                throw new Exception("Client not found for the given RelatedId.");
+            }
+
+            return client;
+        }
+
         public CartAddressViewModel GetAddressDetailsById(int contactInfoId)
         {
             var contactInfo = _context.ContactInfos.FirstOrDefault(ci => ci.ContactInfoId == contactInfoId);
@@ -159,7 +175,8 @@ namespace EvSef.Infra.Data.Repository
                         Address = contactInfo.ContactInfoAddress,
                         State = stateName,
                         District = location.StateName,
-                        ZipCode = contactInfo.ContactInfoZipCode
+                        ZipCode = contactInfo.ContactInfoZipCode,
+                        LocationId = contactInfo.LocationId,
                     };
 
                     return addressDetails;
@@ -175,6 +192,19 @@ namespace EvSef.Infra.Data.Repository
         #endregion
 
 
+        #region CreateFinalOrder
+
+        public async Task CreateFinalOrder(Order order)
+        {
+            await _context.Orders.AddAsync(order);
+        }
+
+        public Task<bool> OrderNumberIsExists(string orderNumber)
+        {
+            return _context.Orders.AnyAsync(o => o.OrderNumber == orderNumber);
+        }
+
+        #endregion
 
         #region DisposeAsync
         public async ValueTask DisposeAsync()
@@ -189,6 +219,8 @@ namespace EvSef.Infra.Data.Repository
         {
             await _context.SaveChangesAsync();
         }
+
+     
 
         #endregion
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EvSef.Core.Extensions;
+using EvSef.Core.Generator;
 using EvSef.Domain.Entities.ContactInfo;
 using EvSef.Domain.Entities.Order;
 using EvSef.Domain.ViewModels.Cart;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using EvSef.Domain.ViewModels.ManagementPerson;
 using EvSef.Domain.Entities.UserType;
 using EvSef.Infra.Data.Repository;
+using EvSef.Domain.Entities.OrderDetails;
 
 
 namespace EvSef.Core.Services.Implementations
@@ -51,10 +53,14 @@ namespace EvSef.Core.Services.Implementations
             return await _orderRepository.GetRelatedTypeByClientId(clientId);
         }
 
+      
+
         public CartAddressViewModel GetAddressDetailsById(int contactInfoId)
         {
             return _orderRepository.GetAddressDetailsById(contactInfoId);
         }
+
+ 
 
 
         public async Task<CreateCartAddressResult> CreateNewContactInfoByClient(CartAddressViewModel cartAddressViewModel, int clientId)
@@ -81,13 +87,66 @@ namespace EvSef.Core.Services.Implementations
                 LocationId = (int)(cartAddressViewModel.LocationId == 0 ? null : cartAddressViewModel.LocationId),
                 RelatedType = relatedType,
                 RelatedId = clientId,
-                ContactInfoId = cartAddressViewModel.ContactInfoId
+                
 
             };
 
             await _orderRepository.CreateNewContactInfoByClient(contactInfo);
             await _orderRepository.SaveChanges();
             return CreateCartAddressResult.Success;
+        }
+
+
+
+        #endregion
+
+        #region CreateFinalOrder
+
+        public async Task<CheckOutResultModel> CreateFinalOrder(CheckOutViewModel checkOutViewModel, int userId)
+        {
+            try
+            {
+                if (checkOutViewModel == null || userId == 0)
+                {
+                    return new CheckOutResultModel { Result = CheckOutResult.NotFound, OrderNumber = null };
+                }
+
+                var orderNumber = RandomNumber.Generate(100000, 999999).ToString();
+                bool isOrderNumberExists = await _orderRepository.OrderNumberIsExists(orderNumber);
+
+                if (isOrderNumberExists)
+                {
+                    return new CheckOutResultModel { Result = CheckOutResult.CheckOutIsExist, OrderNumber = null };
+                }
+
+                var clientId = await _orderRepository.GetClientIdByRelatedId(userId);
+                Order order = new Order()
+                {
+                    ClientId = clientId,
+                    OrderNumber = orderNumber,
+                    ContactInfoId = checkOutViewModel.CartAddresses.ContactInfoId,
+                    OrderTotalTaxAmount = checkOutViewModel.Tax,
+                    TotalAmount = checkOutViewModel.FinalPrice,
+                    OrderType = OrderType.PreOrder,
+                    OrderTotalDiscountAmount = 0,
+                    OrderDescription = checkOutViewModel.CartDeliveryDateViewModel.Details,
+                    DeliveryDate = checkOutViewModel.CartDeliveryDateViewModel.DeliveryDate,
+                    DeliveryTime = checkOutViewModel.CartDeliveryDateViewModel.DeliveryTime,
+                    PaymentType = checkOutViewModel.CartDeliveryDateViewModel.PaymentMethod,
+                    RegisterDate = DateTime.Now,
+                    CreatedUser = userId,
+                };
+
+                await _orderRepository.CreateFinalOrder(order);
+                await _orderRepository.SaveChanges();
+
+                return new CheckOutResultModel { Result = CheckOutResult.Success, OrderNumber = orderNumber };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in CreateFinalOrder: {ex.Message}");
+                return new CheckOutResultModel { Result = CheckOutResult.CheckOutIsExist, OrderNumber = null };
+            }
         }
 
 
@@ -220,9 +279,8 @@ namespace EvSef.Core.Services.Implementations
             _httpContextAccessor.HttpContext.Session.SetJson("contactInfoIdSession", contactInfoId);
         }
 
-    
+ 
 
-    
 
 
         //ClearSession

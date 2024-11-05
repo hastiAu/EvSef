@@ -120,36 +120,30 @@ namespace EvSef.Web.Areas.UserPanel.Controllers
             //return RedirectToAction("Index", "Home", new { area = "" });
         }
 
+        [Authorize]
+        [HttpPost("/UserPanel/Checkout")]
 
-        [HttpPost]
-     
-        public IActionResult Checkout(CheckOutViewModel checkOutViewModel)
+        public async Task<IActionResult> CheckOut([FromBody] CheckOutViewModel checkOutViewModel)
         {
-            if (checkOutViewModel != null)
-            {
-                // اینجا می‌توانید داده‌های دریافتی را پردازش کنید
-                // برای مثال: ذخیره‌سازی سفارش در پایگاه داده و انجام منطق چک‌اوت
+            var userId = User.GetCurrentUserId();
+            var checkOutResult = await _orderService.CreateFinalOrder(checkOutViewModel, userId);
 
-                // فرض کنید که چک‌اوت با موفقیت انجام شده است
-                bool isCheckoutSuccessful = true;
-
-                if (isCheckoutSuccessful)
-                {
-                    return Json(new { success = true, message = "Checkout completed successfully." });
-                }
-                else
-                {
-                    return Json(new { success = false, message = "There was an error completing the checkout." });
-                }
-            }
-            else
+            switch (checkOutResult.Result)
             {
-                // اگر داده‌ها دریافت نشدند، ممکن است یک خطای HTTP 400 (Bad Request) برگردانید
-                return BadRequest("Invalid data received.");
+                case CheckOutResult.NotFound:
+                    return Json(new { success = false, message = " Order Not Found  " });
+
+                case CheckOutResult.CheckOutIsExist:
+                    return Json(new { success = false, message = "This Order was registered Before" });
+
+                case CheckOutResult.Success:
+                    return Json(new { success = true, message = "Your Order Has registered Successfully", orderNumber = checkOutResult.OrderNumber });
             }
+
+            return Json(new { success = false, message = "An error happened" });
         }
 
-     
+
         [HttpGet("/UserPanel/Home/GetCartItemsFromSession")]
 
         public IActionResult GetCartItemsFromSession()
@@ -272,6 +266,7 @@ namespace EvSef.Web.Areas.UserPanel.Controllers
 
                 case CreateCartAddressResult.Success:
                     var updatedAddresses = await _orderService.GetClientContactInfoById(userId); // Get the updated list of addresses
+
                     return Json(new { success = true, message = "Address added successfully!", addresses = updatedAddresses });
 
 

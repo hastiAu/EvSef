@@ -1,4 +1,4 @@
-
+﻿
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -6,16 +6,22 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.Unicode;
 using EvSef.Infra.Data.Context;
 using EvSef.Infra.IoC.Dependency;
 using FluentAssertions.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
- 
+using System.Globalization;
+using System.Text.Json.Serialization;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 
 //builder.Configuration.GetConnectionString("EvSefDBConnection");
 
@@ -64,13 +70,23 @@ builder.Services.AddSession(options =>
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpContextAccessor();
 
+
 // Add services to the container. IOC
 
 DependencyContainer.RegisterServices(builder.Services);
 
 builder.Services.AddControllersWithViews();
-  
-    var app = builder.Build();
+
+//  JSON ,CamelCase
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
+
+
+
+var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
@@ -104,4 +120,3 @@ app.MapControllerRoute(
 app.Run();
 
 
- 

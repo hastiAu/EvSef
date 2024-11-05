@@ -10,7 +10,7 @@ namespace EvSef.Domain.ViewModels.Cart
     public class CartAddressViewModel
     {
 
-    
+     
         public int ContactInfoId { get; set; }
 
         [Display(Name = "Address")]

@@ -16,11 +16,9 @@
                     $.ajax({
                         url: '/UserPanel/Home/SaveSelectedContactInfoIdInSession',
                         type: 'POST',
-                        data: $('#addressSession').serialize(),
+                        data: { selectedContactInfoId: selectedContactInfoId },  // Send selectedContactInfoId directly
                         success: function (response) {
                             if (response.success) {
-                                // Optionally, you can perform UI updates here
-                                /*  alert(response.message); // Show success message*/
                                 $('html, body').animate({ scrollTop: 0 }, 'fast');
 
                                 // Get address details from session
@@ -36,6 +34,8 @@
                                             $('#reviewState').val(addressDetailsResponse.addressDetails.state);
                                             $('#reviewDistrict').val(addressDetailsResponse.addressDetails.district);
                                             $('#reviewZipCode').val(addressDetailsResponse.addressDetails.zipCode);
+                                            $('#ContactInfoId').val(selectedContactInfoId);
+                                            $('#LocationId').val(addressDetailsResponse.addressDetails.locationId); // Set LocationId
                                         } else {
                                             console.error('Error: ', addressDetailsResponse.message);
                                             ShowMessage(addressDetailsResponse.message);
@@ -112,8 +112,51 @@
         },
 
         onFinished: function (event, currentIndex) {
-            // این تابع به متد myFinishFunction هدایت می‌شود
-            myFinishFunction();
+            event.preventDefault();
+            console.log("Finish was clicked !");
+            var selectedContactInfoId = $('input[name="selectedContactInfoId"]:checked').val();
+
+            var postData = {
+                CartAddresses: {
+                    address: $('#reviewAddress').val(),
+                    state: $('#reviewState').val(),
+                    district: $('#reviewDistrict').val(),
+                    zipCode: $('#reviewZipCode').val(),
+                    contactInfoId: selectedContactInfoId,
+                    locationId: $('#LocationId').val()
+                },
+                CartDeliveryDateViewModel: {
+                    deliveryDate: $('#deliveryDate').val(),
+                    deliveryTime: $('#deliveryTime').val(),
+                    details: $('#details').val(),
+                },
+                tax: parseFloat($('#tax').val()),
+                totalPrice: parseFloat($('#totalPrice').text()),  // Change string to float
+                finalPrice: parseFloat($('#finalPrice').text())
+            };
+
+            console.log('postData', postData);
+            $.ajax({
+                type: "POST",
+                url: "/UserPanel/CheckOut",
+                data: JSON.stringify(postData),
+                contentType: "application/json",
+                success: function (response) {
+                    if (response.success) {
+                        // Just Show Message without redirect any confirmation Methods
+
+                        $('#step-form-horizontal').hide();
+                        $('#orderNumber').text(response.orderNumber);
+
+                        $('#confirmationMessage').show();
+                    } else {
+                        alert("There was an error processing the checkout: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("error     : " + error);
+                }
+            });
         }
     });
 
@@ -135,47 +178,5 @@
         transitionEffect: "slideLeft",
         stepsOrientation: "vertical"
     });
-
-    function myFinishFunction() {
-        // اینجا عملیاتی که می‌خواهید پس از کلیک بر روی دکمه Finish انجام دهید را قرار دهید
-        console.log("دکمه Finish کلیک شد!");
-        var postData = {
-            cartAddresses: {
-                Address: $('#reviewAddress').val(),
-                State: $('#reviewState').val(),
-                District: $('#reviewDistrict').val(),
-                ZipCode: $('#reviewZipCode').val()
-            },
-            cartDeliveryDateViewModel: {
-                DeliveryDate: $('#deliveryDate').val(),
-                DeliveryTime: $('#deliveryTime').val(),
-                Details: $('#details').val(),
-                PaymentMethod: $('#paymentMethod').val()
-            },
-            Tax: parseFloat($('#tax').val()),
-    
-            TotalPrice: parseFloat($('#totalPrice').text()),
-            FinalPrice: parseFloat($('#finalPrice').text())
-        };
-
-        var postDataJson = JSON.stringify(postData);
-
-        console.log('postData', postData);
-
-        $.ajax({
-            url: '/UserPanel/Home/CheckOut',
-            type: 'POST',
-            contentType: 'application/json',
-            data: postDataJson,
-            success: function (response) {
-                console.log('Checkout successful:', response);
-            },
-            error: function (xhr, status, error) {
-                console.error('Checkout failed:', status, error);
-                alert('Error sending data. Please try again.');
-            }
-        });
-    
-    }
 
 })(jQuery);

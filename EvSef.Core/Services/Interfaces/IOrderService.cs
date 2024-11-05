@@ -17,10 +17,17 @@ namespace EvSef.Core.Services.Interfaces
         Task<CartItemViewModel> GetItemByChefFoodId(int chefFoodId);
         Task<List<CartAddressViewModel>> GetClientContactInfoById(int clientId);
         Task<CreateCartAddressResult> CreateNewContactInfoByClient(CartAddressViewModel cartAddressViewModel, int clientId);
-
         Task<RelatedType> GetRelatedTypeByClientId(int clientId);
-
         CartAddressViewModel GetAddressDetailsById(int contactInfoId);
+        #endregion
+
+        #region CreateFinalOrder
+
+        //Task<CheckOutResult> CreateFinalOrder(CheckOutViewModel checkOutViewModel, int userId);
+        Task<CheckOutResultModel> CreateFinalOrder(CheckOutViewModel checkOutViewModel, int userId);
+
+
+
         #endregion
 
         #region Session
@@ -39,7 +46,7 @@ namespace EvSef.Core.Services.Interfaces
         // ContactInfo _ Address Session
         int? GetSelectedContactInfoIdFromSession();
         void SaveSelectedContactInfoIdInSession(int contactInfoId);
-      
+
 
         #endregion
 
