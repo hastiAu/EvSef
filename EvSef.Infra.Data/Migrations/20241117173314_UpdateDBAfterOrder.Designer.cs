@@ -4,6 +4,7 @@ using EvSef.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvSef.Infra.Data.Migrations
 {
     [DbContext(typeof(EvSefDbContext))]
-    partial class EvSefDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241117173314_UpdateDBAfterOrder")]
+    partial class UpdateDBAfterOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("CorporationFoodsCorporationFoodId");
 
-                    b.ToTable("ChefFoodCorporationFood", (string)null);
+                    b.ToTable("ChefFoodCorporationFood");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.AboutUs.AboutUs", b =>
@@ -77,7 +80,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("AboutUsId");
 
-                    b.ToTable("AboutUs", (string)null);
+                    b.ToTable("AboutUs");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Account.Chef", b =>
@@ -138,7 +141,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("ChefId");
 
-                    b.ToTable("Chefs", (string)null);
+                    b.ToTable("Chefs");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Account.Corporation", b =>
@@ -207,7 +210,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("CorporationId");
 
-                    b.ToTable("Corporations", (string)null);
+                    b.ToTable("Corporations");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Account.Person", b =>
@@ -263,7 +266,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("PersonId");
 
-                    b.ToTable("Persons", (string)null);
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.BeComeChef.BeComeChef", b =>
@@ -296,7 +299,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("BeComeChefId");
 
-                    b.ToTable("BeComeChefs", (string)null);
+                    b.ToTable("BeComeChefs");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.ContactInfo.ContactInfo", b =>
@@ -329,7 +332,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("ContactInfoId");
 
-                    b.ToTable("ContactInfos", (string)null);
+                    b.ToTable("ContactInfos");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.ContactInfo.ContactLocation", b =>
@@ -351,7 +354,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("ContactLocations", (string)null);
+                    b.ToTable("ContactLocations");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.CorporationFoodOrder.CorporationFoodOrder", b =>
@@ -388,7 +391,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("CorporationFoodOrderId");
 
-                    b.ToTable("CorporationFoodOrders", (string)null);
+                    b.ToTable("CorporationFoodOrders");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.CustomFood.CustomFood", b =>
@@ -425,7 +428,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("CustomFoodId");
 
-                    b.ToTable("CustomFoods", (string)null);
+                    b.ToTable("CustomFoods");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Food.ChefFood", b =>
@@ -460,7 +463,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("FoodId");
 
-                    b.ToTable("ChefFoods", (string)null);
+                    b.ToTable("ChefFoods");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Food.CorporationFood", b =>
@@ -503,7 +506,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("CorporationFoodId");
 
-                    b.ToTable("CorporationFoods", (string)null);
+                    b.ToTable("CorporationFoods");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Food.Food", b =>
@@ -543,7 +546,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("FoodId");
 
-                    b.ToTable("Foods", (string)null);
+                    b.ToTable("Foods");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Food.FoodCategory", b =>
@@ -576,7 +579,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("FoodCategoryId");
 
-                    b.ToTable("FoodCategories", (string)null);
+                    b.ToTable("FoodCategories");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Food.FoodSelectedCategory", b =>
@@ -605,7 +608,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("FoodId");
 
-                    b.ToTable("FoodSelectedCategories", (string)null);
+                    b.ToTable("FoodSelectedCategories");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Food.WeekDayFood", b =>
@@ -641,7 +644,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("ChefFoodId");
 
-                    b.ToTable("WeekDayFoods", (string)null);
+                    b.ToTable("WeekDayFoods");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.FoodPrice.ChefFoodPrice", b =>
@@ -685,7 +688,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("PriceTypeId");
 
-                    b.ToTable("ChefFoodPrices", (string)null);
+                    b.ToTable("ChefFoodPrices");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.FoodPrice.PriceType", b =>
@@ -718,7 +721,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("PriceTypeId");
 
-                    b.ToTable("PriceTypes", (string)null);
+                    b.ToTable("PriceTypes");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Instagram.Instagram", b =>
@@ -751,7 +754,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("InstagramId");
 
-                    b.ToTable("Instagram", (string)null);
+                    b.ToTable("Instagram");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.JoinUs.JoinUs", b =>
@@ -788,7 +791,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("JoinUsId");
 
-                    b.ToTable("JoinUs", (string)null);
+                    b.ToTable("JoinUs");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.MainSlider.MainSlider", b =>
@@ -826,7 +829,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("MaidSliderId");
 
-                    b.ToTable("MainSliders", (string)null);
+                    b.ToTable("MainSliders");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Order.Order", b =>
@@ -887,7 +890,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("ClientId", "OrderNumber");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.OrderDetails.OrderDetails", b =>
@@ -930,7 +933,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.OurCustomer.OurCustomer", b =>
@@ -967,7 +970,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("OurCustomerId");
 
-                    b.ToTable("OurCustomers", (string)null);
+                    b.ToTable("OurCustomers");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.OurService.OurService", b =>
@@ -1005,7 +1008,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("OurServiceId");
 
-                    b.ToTable("OurServices", (string)null);
+                    b.ToTable("OurServices");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Restaurant.Restaurant", b =>
@@ -1043,7 +1046,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("RestaurantId");
 
-                    b.ToTable("Restaurants", (string)null);
+                    b.ToTable("Restaurants");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.SiteSetting.SiteSetting", b =>
@@ -1164,7 +1167,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("SiteSettingId");
 
-                    b.ToTable("SiteSettings", (string)null);
+                    b.ToTable("SiteSettings");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.SocialMedia.SocialMedia", b =>
@@ -1202,7 +1205,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("SocialMediaId");
 
-                    b.ToTable("SocialMedia", (string)null);
+                    b.ToTable("SocialMedia");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.UserType.Client", b =>
@@ -1239,7 +1242,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasKey("ClientId");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("EvSef.Domain.Entities.Wallet.Wallet", b =>
@@ -1279,7 +1282,7 @@ namespace EvSef.Infra.Data.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Wallets", (string)null);
+                    b.ToTable("Wallets");
                 });
 
             modelBuilder.Entity("ChefFoodCorporationFood", b =>

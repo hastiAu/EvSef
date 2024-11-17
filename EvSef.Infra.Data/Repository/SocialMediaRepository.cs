@@ -10,7 +10,7 @@ using EvSef.Domain.ViewModels.SocialMedia;
 using Microsoft.EntityFrameworkCore;
 using EvSef.Domain.Entities.SocialMedia;
 using EvSef.Domain.ViewModels.Pagination;
-using EvSef.Infra.Data.Migrations;
+ 
 
 namespace EvSef.Infra.Data.Repository
 {

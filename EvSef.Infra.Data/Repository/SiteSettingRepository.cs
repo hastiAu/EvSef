@@ -7,7 +7,7 @@ using EvSef.Domain.Entities.SiteSetting;
 using EvSef.Domain.IRepository;
 using EvSef.Domain.ViewModels.SiteSetting;
 using EvSef.Infra.Data.Context;
-using EvSef.Infra.Data.Migrations;
+ 
 using Microsoft.EntityFrameworkCore;
 
 namespace EvSef.Infra.Data.Repository

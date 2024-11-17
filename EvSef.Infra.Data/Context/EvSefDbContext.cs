@@ -205,9 +205,18 @@ namespace EvSef.Infra.Data.Context
             modelBuilder.Entity<ChefFoodPrice>().Property(p => p.ChefFoodsPrice).HasColumnType("decimal(18,4)");
             modelBuilder.Entity<ChefFoodPrice>().Property(p => p.ChefFoodPriceIsDefault).HasColumnType("decimal(18,4)");
 
+  
+
+            // ایجاد ایندکس ترکیبی برای ClientId و OrderNumber
+            modelBuilder.Entity<Order>()
+                .HasIndex(o => new { o.ClientId, o.OrderNumber });
+
+
 
         }
+
     }
+}
 
 // Or Add      [Column(TypeName = "decimal(18,2)")] to ChefFoodPriceDb for Decimal Properties
     //modelBuilder.Entity<ChefFoodPrice>().Property(p => p.ChefFoodsPrice).HasColumnType("decimal(18,4)");
@@ -258,7 +267,6 @@ namespace EvSef.Infra.Data.Context
 
 
 
-
-}
+ 
 
 

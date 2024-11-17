@@ -149,6 +149,11 @@
                         $('#orderNumber').text(response.orderNumber);
 
                         $('#confirmationMessage').show();
+
+                        // To change basket number to 0
+                        $('.cart-counter').text('0');
+
+ 
                     } else {
                         alert("There was an error processing the checkout: " + response.message);
                     }

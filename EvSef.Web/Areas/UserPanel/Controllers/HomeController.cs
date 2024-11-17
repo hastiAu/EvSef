@@ -137,7 +137,9 @@ namespace EvSef.Web.Areas.UserPanel.Controllers
                     return Json(new { success = false, message = "This Order was registered Before" });
 
                 case CheckOutResult.Success:
-                    return Json(new { success = true, message = "Your Order Has registered Successfully", orderNumber = checkOutResult.OrderNumber });
+                    ClearCart();  //Clear basket Session 
+                    return Json(new { success = true, message = "Your Order Has registered Successfully", orderNumber = checkOutResult.OrderNumber }); 
+                  
             }
 
             return Json(new { success = false, message = "An error happened" });
@@ -334,7 +336,7 @@ namespace EvSef.Web.Areas.UserPanel.Controllers
         #endregion
 
 
-        #region Add/Remove ToCart
+        #region Add/Remove/Clear Cart
 
         public async Task<IActionResult> AddToCart(int chefFoodId, bool stayInCartPage = false)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using EvSef.Domain.Entities.Account;
@@ -11,10 +12,13 @@ using EvSef.Domain.Entities.Wallet;
 
 namespace EvSef.Domain.Entities.Order
 {
+ 
     public class Order
     {
+
         [Key]
         public int OrderId  { get; set; }
+       
         public int ClientId  { get; set; }
 
         [Display(Name = "Order Number")]
